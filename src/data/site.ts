@@ -1,6 +1,11 @@
 export const site = {
   name: "Sohid Mondol",
   email: "sohid10960@gmail.com",
+  // Put your PDF at public/Sohid-Mondol-CV.pdf
+  whatsapp: "8801719026575",
+  cv: "/Sohid-Mondol-CV.pdf",
+  about:
+    "I'm a Computer Science student who enjoys turning ideas into fast, clean, and easy-to-use websites. I learn by building real projects, and I care about readable code, good design, and accessibility.",
   github: "https://github.com/eng-sohid",
   linkedin: "https://www.linkedin.com/in/md-sohid-mondol-0a6666408/",
 };
@@ -28,7 +33,7 @@ export const skillGroups = [
   {
     title: "Backend & Data",
     description: "Working with APIs and databases in full-stack projects.",
-    items: ["REST APIs", "MongoDB"],
+    items: ["Node.js", "Express.js", "REST APIs", "MongoDB"],
   },
   {
     title: "Tools & Workflow",
@@ -73,5 +78,23 @@ export const projects: Project[] = [
     accent: "text-red-400",
     demo: "https://bangla-news-24-neon.vercel.app/",
     // github: "https://github.com/eng-sohid/<repo-name>", // add when the repo is public
+  },
+];
+
+export const services = [
+  {
+    title: "Responsive interfaces",
+    description:
+      "Clean, mobile-first layouts built with React, Next.js, and Tailwind CSS that look right on every screen.",
+  },
+  {
+    title: "Full-stack web apps",
+    description:
+      "End-to-end features with TypeScript, from the user interface to the database, deployed on Vercel.",
+  },
+  {
+    title: "API and data integration",
+    description:
+      "Connecting apps to REST APIs and MongoDB so content and data stay dynamic and easy to update.",
   },
 ];

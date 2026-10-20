@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import { navLinks } from "../data/site";
+import { navLinks, site } from "../data/site";
 
 const observedSections = [...navLinks.map((l) => l.href), "#contact"];
 
@@ -68,12 +68,21 @@ export default function Navbar() {
           ))}
         </div>
 
-        <a
-          href="#contact"
-          className="hidden rounded-full border border-lime-400/50 px-5 py-2.5 text-sm font-semibold text-lime-400 transition duration-300 hover:bg-lime-400 hover:text-black sm:inline-flex"
-        >
-          Contact me
-        </a>
+        <div className="hidden items-center gap-4 sm:flex">
+          <a
+            href="/Sohid-CV.pdf"
+            download
+            className="text-sm font-semibold text-gray-300 transition hover:text-lime-400"
+          >
+            Download CV
+          </a>
+          <a
+            href="#contact"
+            className="rounded-full border border-lime-400/50 px-5 py-2.5 text-sm font-semibold text-lime-400 transition duration-300 hover:bg-lime-400 hover:text-black"
+          >
+            Contact me
+          </a>
+        </div>
 
         <button
           type="button"
@@ -127,6 +136,13 @@ export default function Navbar() {
                 {link.label}
               </a>
             ))}
+            <a
+              href={site.cv}
+              download
+              className="text-gray-300 transition hover:text-lime-400"
+            >
+              Download CV
+            </a>
             <a
               href="#contact"
               onClick={() => setMenuOpen(false)}
