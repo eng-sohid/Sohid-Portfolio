@@ -2,6 +2,7 @@
 
 import { useEffect, useState } from "react";
 import { navLinks, site } from "../data/site";
+import { ext } from "../lib/styles";
 
 const observedSections = [...navLinks.map((l) => l.href), "#contact"];
 
@@ -70,11 +71,11 @@ export default function Navbar() {
 
         <div className="hidden items-center gap-4 sm:flex">
           <a
-            href="/Sohid-CV.pdf"
-            download
+            href={site.cv}
+            {...ext}
             className="text-sm font-semibold text-gray-300 transition hover:text-lime-400"
           >
-            Download CV
+            View CV
           </a>
           <a
             href="#contact"
@@ -138,10 +139,11 @@ export default function Navbar() {
             ))}
             <a
               href={site.cv}
-              download
+              {...ext}
+              onClick={() => setMenuOpen(false)}
               className="text-gray-300 transition hover:text-lime-400"
             >
-              Download CV
+              View CV
             </a>
             <a
               href="#contact"

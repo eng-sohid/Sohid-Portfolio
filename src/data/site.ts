@@ -3,7 +3,7 @@ export const site = {
   email: "sohid10960@gmail.com",
   // Put your PDF at public/Sohid-Mondol-CV.pdf
   whatsapp: "8801719026575",
-  cv: "/Sohid-Mondol-CV.pdf",
+  cv: "/Sohid-CV.pdf",
   about:
     "I'm a Computer Science student who enjoys turning ideas into fast, clean, and easy-to-use websites. I learn by building real projects, and I care about readable code, good design, and accessibility.",
   github: "https://github.com/eng-sohid",
@@ -105,18 +105,22 @@ export type Education = {
   institute: string;
   period: string;
   note?: string;
+  gpa?: string;
+  current?: boolean;
 };
 
 export const education: Education[] = [
   {
-    degree: "Diploma in Engineering",
+    degree: "Diploma in Engineering (Computer Science & Technology)",
     institute: "Graphic Arts Institute",
-    period: "2024 – Present",
-    note: "Currently studying, with a focus on building real web projects alongside my diploma.",
+    period: "Session 2024–25 · Currently in 4th Semester",
+    note: "Studying Computer Science and Technology, while building real-world web projects with React, Next.js, and TypeScript.",
+    current: true,
   },
   {
     degree: "Secondary School Certificate (SSC)",
-    institute: "New All Insaf Islami Acadeay",
+    institute: "New All Insaf Islami Academy",
     period: "Completed in 2024",
+    gpa: "5.00",
   },
 ];
