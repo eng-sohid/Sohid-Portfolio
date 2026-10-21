@@ -13,6 +13,7 @@ export const site = {
 export const navLinks = [
   { href: "#about", label: "About" },
   { href: "#skills", label: "Skills" },
+  { href: "#education", label: "Education" },
   { href: "#projects", label: "Projects" },
 ];
 
@@ -96,5 +97,26 @@ export const services = [
     title: "API and data integration",
     description:
       "Connecting apps to REST APIs and MongoDB so content and data stay dynamic and easy to update.",
+  },
+];
+
+export type Education = {
+  degree: string;
+  institute: string;
+  period: string;
+  note?: string;
+};
+
+export const education: Education[] = [
+  {
+    degree: "Diploma in Engineering",
+    institute: "Graphic Arts Institute",
+    period: "2024 – Present",
+    note: "Currently studying, with a focus on building real web projects alongside my diploma.",
+  },
+  {
+    degree: "Secondary School Certificate (SSC)",
+    institute: "New All Insaf Islami Acadeay",
+    period: "Completed in 2024",
   },
 ];
