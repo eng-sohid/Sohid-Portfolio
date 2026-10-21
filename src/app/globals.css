@@ -92,3 +92,44 @@ body {
     animation: none;
   }
 }
+/* Marquee */
+@keyframes marquee {
+  from {
+    transform: translateX(0);
+  }
+  to {
+    transform: translateX(-50%);
+  }
+}
+.marquee {
+  mask-image: linear-gradient(
+    to right,
+    transparent,
+    #000 10%,
+    #000 90%,
+    transparent
+  );
+}
+.marquee-track {
+  animation: marquee 25s linear infinite;
+}
+.marquee:hover .marquee-track {
+  animation-play-state: paused;
+}
+
+/* Typing caret */
+@keyframes caret-blink {
+  50% {
+    opacity: 0;
+  }
+}
+.typing-caret {
+  animation: caret-blink 1s step-end infinite;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .marquee-track,
+  .typing-caret {
+    animation: none;
+  }
+}
