@@ -78,8 +78,8 @@ export const projects: Project[] = [
     tech: ["Next.js", "TypeScript", "Tailwind CSS", "REST API"],
     gradient: "from-red-500/15",
     accent: "text-red-400",
-    demo: "https://bangla-news-24-neon.vercel.app/",
-    // github: "https://github.com/eng-sohid/<repo-name>", // add when the repo is public
+    demo: "https://bangla-news-24-neon.vercel.app",
+    github: "https://github.com/eng-sohid/Bangla-News-24",
   },
 ];
 
