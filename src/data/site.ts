@@ -58,6 +58,26 @@ export type Project = {
 
 export const projects: Project[] = [
   {
+    title: "Wanderlust",
+    titleBn: "ওয়ান্ডারলাস্ট",
+    subtitle: "Travel & Destination Booking Platform",
+    description:
+      "A modern travel booking platform where users can explore destinations, view trip details, and book their favorite travel experiences. Features user authentication, destination management, and booking management with a responsive interface.",
+    tech: [
+      "Next.js",
+      "TypeScript",
+      "Tailwind CSS",
+      "Node.js",
+      "Express.js",
+      "MongoDB",
+      "Better Auth",
+    ],
+    gradient: "from-sky-500/15",
+    accent: "text-sky-400",
+    demo: "https://wanderlust-omega-woad.vercel.app",
+    github: "https://github.com/eng-sohid/Wander-lust-Frontend",
+  },
+  {
     title: "Bazar Dor",
     titleBn: "বাজার দর",
     subtitle: "Product Price Platform",
@@ -69,6 +89,7 @@ export const projects: Project[] = [
     demo: "https://bazar-dor-nine.vercel.app",
     github: "https://github.com/eng-sohid/Bazar-dor",
   },
+
   {
     title: "Bangla News 24",
     titleBn: "বাংলা নিউজ ২৪",
