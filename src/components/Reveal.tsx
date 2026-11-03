@@ -1,4 +1,3 @@
-// src/components/Reveal.tsx
 "use client";
 
 import { useEffect, useRef, useState, type ReactNode } from "react";
@@ -16,26 +15,53 @@ export default function Reveal({
   const [shown, setShown] = useState(false);
 
   useEffect(() => {
-    const el = ref.current;
-    if (!el) return;
-    const io = new IntersectionObserver(
+    const element = ref.current;
+
+    if (!element) return;
+
+    // Respect reduced-motion preferences.
+    const prefersReducedMotion = window.matchMedia(
+      "(prefers-reduced-motion: reduce)",
+    );
+
+    if (prefersReducedMotion.matches) {
+      // Defer the update so it does not run synchronously inside the effect.
+      const frame = window.requestAnimationFrame(() => setShown(true));
+      return () => window.cancelAnimationFrame(frame);
+    }
+
+    // Reveal when the element enters the viewport.
+    const observer = new IntersectionObserver(
       ([entry]) => {
         if (entry.isIntersecting) {
           setShown(true);
-          io.disconnect();
+          observer.disconnect();
         }
       },
-      { threshold: 0.15 },
+      {
+        threshold: 0.12,
+        rootMargin: "0px 0px -40px 0px",
+      },
     );
-    io.observe(el);
-    return () => io.disconnect();
+
+    observer.observe(element);
+
+    return () => {
+      observer.disconnect();
+    };
   }, []);
 
   return (
     <div
       ref={ref}
-      style={{ transitionDelay: `${delay}ms` }}
-      className={`reveal ${shown ? "reveal-in" : ""} ${className}`}
+      style={{
+        transitionDelay: shown ? `${delay}ms` : "0ms",
+      }}
+      className={`
+        reveal
+        ${shown ? "reveal-in" : ""}
+        ${className}
+      `}
     >
       {children}
     </div>

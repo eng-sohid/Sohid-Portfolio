@@ -6,6 +6,12 @@ const nextConfig: NextConfig = {
   cacheComponents: true,
   partialPrefetching: true,
   transpilePackages: ["three"],
+  images: {
+    remotePatterns: [
+      { protocol: "https", hostname: "cdn.jsdelivr.net" },
+      { protocol: "https", hostname: "cdn.simpleicons.org" },
+    ],
+  },
   turbopack: {
     rules: {
       "*.css": {
