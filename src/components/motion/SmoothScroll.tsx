@@ -11,7 +11,7 @@ export default function SmoothScroll() {
 
     const hasFinePointer = window.matchMedia("(pointer: fine)").matches;
 
-    // Disable smooth scrolling for reduced motion or touch devices.
+    // Use native scrolling for touch devices and reduced motion.
     if (prefersReducedMotion || !hasFinePointer) {
       return;
     }
@@ -33,19 +33,34 @@ export default function SmoothScroll() {
 
     // Smooth scrolling for internal section links.
     function handleAnchorClick(event: MouseEvent) {
+      if (
+        event.defaultPrevented ||
+        event.button !== 0 ||
+        event.metaKey ||
+        event.ctrlKey ||
+        event.shiftKey ||
+        event.altKey
+      ) {
+        return;
+      }
+
       const target = event.target;
 
       if (!(target instanceof Element)) return;
 
       const link = target.closest<HTMLAnchorElement>('a[href^="#"]');
 
-      if (!link) return;
+      if (!link || link.target === "_blank" || link.hasAttribute("download")) {
+        return;
+      }
 
       const href = link.getAttribute("href");
 
       if (!href || href === "#") return;
 
-      const section = document.getElementById(href.slice(1));
+      const section = document.getElementById(
+        decodeURIComponent(href.slice(1)),
+      );
 
       if (!section) return;
 
@@ -55,6 +70,9 @@ export default function SmoothScroll() {
         offset: -96,
         duration: 1.2,
       });
+
+      // Keep the URL hash in sync.
+      window.history.pushState(null, "", href);
     }
 
     document.addEventListener("click", handleAnchorClick);

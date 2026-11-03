@@ -48,7 +48,11 @@ const channels = [
 
 export default function Contact() {
   return (
-    <section id="contact" className={`${section} relative overflow-hidden`}>
+    <section
+      id="contact"
+      aria-labelledby="contact-heading"
+      className={`${section} relative overflow-hidden`}
+    >
       {/* Background atmosphere */}
       <div
         aria-hidden="true"
@@ -65,7 +69,7 @@ export default function Contact() {
                 <span aria-hidden="true" className="h-px w-8 bg-accent/50" />
               </p>
 
-              <h2 className={`${h2} max-w-2xl`}>
+              <h2 id="contact-heading" className={`${h2} max-w-2xl`}>
                 Let&apos;s build something{" "}
                 <span className="text-accent">together.</span>
               </h2>
@@ -117,7 +121,7 @@ export default function Contact() {
               </div>
 
               <ul className="flex flex-col gap-3">
-                {channels.map((channel, index) => {
+                {channels.map((channel) => {
                   const Icon = channel.icon;
 
                   return (

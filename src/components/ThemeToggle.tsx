@@ -16,7 +16,7 @@ function subscribe(callback: () => void) {
   };
 }
 
-// Read the current theme from the HTML element.
+// Get the current theme from HTML.
 function getSnapshot(): Theme {
   return document.documentElement.classList.contains("light")
     ? "light"
@@ -40,7 +40,7 @@ export default function ThemeToggle({
 
     const root = document.documentElement;
 
-    // Smooth one-time theme transition.
+    // Smooth theme transition.
     root.classList.add("theme-anim");
 
     window.setTimeout(() => {
@@ -50,11 +50,11 @@ export default function ThemeToggle({
     // Update HTML theme.
     root.classList.toggle("light", next === "light");
 
-    // Save preference.
+    // Save theme preference.
     try {
       localStorage.setItem(KEY, next);
     } catch {
-      // Ignore storage errors in private browsing.
+      // Ignore storage errors.
     }
 
     // Notify other components.

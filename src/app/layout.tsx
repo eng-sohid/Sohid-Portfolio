@@ -10,26 +10,30 @@ const geistSans = Geist({
   variable: "--font-geist-sans",
   subsets: ["latin"],
   display: "swap",
+  preload: true,
 });
 
 const geistMono = Geist_Mono({
   variable: "--font-geist-mono",
   subsets: ["latin"],
   display: "swap",
+  preload: false,
 });
 
 const notoBengali = Noto_Sans_Bengali({
   variable: "--font-noto-bengali",
   subsets: ["bengali"],
   display: "swap",
+  preload: false,
 });
 
-const siteUrl = process.env.NEXT_PUBLIC_SITE_URL ?? "http://localhost:3000";
+const siteUrl =
+  process.env.NEXT_PUBLIC_SITE_URL ?? "https://sohid-portfolio-mu.vercel.app";
 
-const title = "Sohid Mondol | Full-Stack Developer";
+const title = "Sohid Mondol — Full Stack Developer";
 
 const description =
-  "Sohid Mondol is a Computer Science student and Full-Stack Web Developer passionate about building modern digital experiences using React, Next.js, TypeScript and Node.js.";
+  "Explore the portfolio of Sohid Mondol, a Computer Science & Technology student and Full Stack Developer building modern web experiences with React, Next.js, TypeScript and Node.js.";
 
 export const metadata: Metadata = {
   metadataBase: new URL(siteUrl),
@@ -41,15 +45,20 @@ export const metadata: Metadata = {
 
   description,
 
+  applicationName: "Sohid Mondol Portfolio",
+
   keywords: [
     "Sohid Mondol",
+    "MD Sohid Mondol",
     "Full Stack Developer",
     "Software Engineer",
     "Next.js Developer",
     "React Developer",
-    "TypeScript",
-    "JavaScript",
+    "TypeScript Developer",
+    "JavaScript Developer",
+    "Node.js Developer",
     "Web Developer Portfolio",
+    "Computer Science Student",
   ],
 
   authors: [
@@ -60,6 +69,7 @@ export const metadata: Metadata = {
   ],
 
   creator: site.name,
+  publisher: site.name,
 
   alternates: {
     canonical: "/",
@@ -68,7 +78,7 @@ export const metadata: Metadata = {
   openGraph: {
     title,
     description,
-    url: "/",
+    url: siteUrl,
     siteName: "Sohid Mondol Portfolio",
     locale: "en_US",
     type: "website",
@@ -83,17 +93,27 @@ export const metadata: Metadata = {
   robots: {
     index: true,
     follow: true,
+    googleBot: {
+      index: true,
+      follow: true,
+      "max-image-preview": "large",
+      "max-snippet": -1,
+      "max-video-preview": -1,
+    },
   },
+
+  category: "technology",
 };
 
 export const viewport: Viewport = {
   width: "device-width",
   initialScale: 1,
+  viewportFit: "cover",
 
   themeColor: [
     {
       media: "(prefers-color-scheme: dark)",
-      color: "#080908",
+      color: "#070907",
     },
     {
       media: "(prefers-color-scheme: light)",
@@ -101,8 +121,6 @@ export const viewport: Viewport = {
     },
   ],
 };
-
-/* Prevent theme flash before React hydration */
 
 const themeScript = `
 (function() {
@@ -126,7 +144,9 @@ const jsonLd = {
   name: site.name,
   url: siteUrl,
   email: site.email,
-  sameAs: [site.github, site.linkedin],
+  jobTitle: "Full Stack Web Developer",
+  description,
+  sameAs: [site.github, site.linkedin].filter(Boolean),
 };
 
 export default function RootLayout({
@@ -156,7 +176,6 @@ export default function RootLayout({
 
       <body className="grain flex min-h-full flex-col bg-bg text-fg selection:bg-accent selection:text-black">
         {/* Accessibility: Skip navigation */}
-
         <a
           href="#main"
           className="sr-only focus:not-sr-only focus:fixed focus:left-4 focus:top-4 focus:z-[100] focus:rounded-full focus:bg-accent-fill focus:px-5 focus:py-3 focus:font-semibold focus:text-black"
@@ -165,20 +184,17 @@ export default function RootLayout({
         </a>
 
         {/* Main Application */}
-
         {children}
 
         {/* Structured Data */}
-
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{
-            __html: JSON.stringify(jsonLd),
+            __html: JSON.stringify(jsonLd).replace(/</g, "\\u003c"),
           }}
         />
 
         {/* No JavaScript fallback */}
-
         <noscript>
           <style>
             {`

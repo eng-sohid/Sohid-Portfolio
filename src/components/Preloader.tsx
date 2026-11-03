@@ -14,13 +14,25 @@ export default function Preloader() {
 
     if (!container || !counter) return;
 
+    const prefersReducedMotion = window.matchMedia(
+      "(prefers-reduced-motion: reduce)",
+    );
+
+    const previousOverflow = document.body.style.overflow;
     document.body.style.overflow = "hidden";
+
+    // Skip long animation for reduced-motion users.
+    if (prefersReducedMotion.matches) {
+      document.body.style.overflow = previousOverflow;
+      const frameId = window.requestAnimationFrame(() => setFinished(true));
+      return () => window.cancelAnimationFrame(frameId);
+    }
 
     const counterObject = { value: 0 };
 
     const timeline = gsap.timeline({
       onComplete: () => {
-        document.body.style.overflow = "";
+        document.body.style.overflow = previousOverflow;
         setFinished(true);
       },
     });
@@ -37,7 +49,7 @@ export default function Preloader() {
         },
       })
       .to(
-        ".preloader-progress",
+        container.querySelector(".preloader-progress"),
         {
           scaleX: 1,
           duration: 2,
@@ -59,7 +71,7 @@ export default function Preloader() {
 
     return () => {
       timeline.kill();
-      document.body.style.overflow = "";
+      document.body.style.overflow = previousOverflow;
     };
   }, []);
 

@@ -1,11 +1,14 @@
 import Reveal from "../../components/Reveal";
 import { education } from "../../data/site";
-
 import { section, container, kicker, h2 } from "../../lib/styles";
 
 export default function Education() {
   return (
-    <section id="education" className={`${section} relative overflow-hidden`}>
+    <section
+      id="education"
+      aria-labelledby="education-heading"
+      className={`${section} relative overflow-hidden`}
+    >
       {/* Background glow */}
       <div
         aria-hidden="true"
@@ -22,7 +25,7 @@ export default function Education() {
                 <span aria-hidden="true" className="h-px w-8 bg-accent/50" />
               </p>
 
-              <h2 className={h2}>
+              <h2 id="education-heading" className={h2}>
                 My <span className="text-accent">education.</span>
               </h2>
             </div>
@@ -45,7 +48,7 @@ export default function Education() {
             <li key={item.degree} className="relative">
               <Reveal delay={index * 120}>
                 <div className="relative grid gap-5 pb-8 sm:grid-cols-[160px_1fr] sm:gap-10 sm:pb-10">
-                  {/* Timeline marker */}
+                  {/* Timeline marker and period */}
                   <div className="relative flex items-center gap-4 sm:items-start sm:pt-7">
                     <span
                       className={`relative z-10 flex h-4 w-4 shrink-0 items-center justify-center rounded-full border ${

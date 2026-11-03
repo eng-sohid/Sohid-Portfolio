@@ -1,64 +1,96 @@
 @import "tailwindcss";
 
-/* ============================================
-   SOHID — PREMIUM CREATIVE DESIGN SYSTEM
-   ============================================ */
+/* =========================================================
+   SOHID — SIGNATURE PREMIUM DESIGN SYSTEM
+   Dark / Lime / Minimal / Cinematic
+========================================================= */
 
 :root {
-  --bg: #080908;
-  --bg-secondary: #0d100b;
-  --fg: #f5f7f0;
-  --muted: #969d91;
-
-  --accent: #ccff00;
-  --accent-fill: #ccff00;
-  --accent-soft: rgb(204 255 0 / 0.12);
-
-  --line: rgb(255 255 255 / 0.09);
-  --card: rgb(255 255 255 / 0.035);
-  --card-hover: rgb(255 255 255 / 0.075);
-
-  --grid: rgb(255 255 255 / 0.055);
-  --shadow: 0 25px 80px rgb(0 0 0 / 0.35);
-
-  --radius: 24px;
-  --nav-height: 76px;
-
   color-scheme: dark;
+
+  --bg: #070907;
+  --bg-secondary: #0b0f0a;
+  --bg-elevated: #10150e;
+
+  --fg: #f5f7ef;
+  --muted: #929b8b;
+  --muted-strong: #bac2b2;
+
+  --accent: #c8ff00;
+  --accent-fill: #c8ff00;
+  --accent-soft: rgb(200 255 0 / 0.1);
+  --accent-glow: rgb(200 255 0 / 0.16);
+
+  --line: rgb(255 255 255 / 0.085);
+  --line-strong: rgb(255 255 255 / 0.14);
+
+  --card: rgb(255 255 255 / 0.035);
+  --card-hover: rgb(255 255 255 / 0.065);
+
+  --grid: rgb(255 255 255 / 0.045);
+
+  --shadow:
+    0 25px 80px rgb(0 0 0 / 0.35), 0 1px 0 rgb(255 255 255 / 0.035) inset;
+
+  --shadow-accent: 0 15px 50px rgb(200 255 0 / 0.09);
+
+  --radius-sm: 12px;
+  --radius-md: 18px;
+  --radius-lg: 26px;
+  --radius-xl: 36px;
+
+  --nav-height: 78px;
+  --container-width: 1280px;
+
+  --ease-premium: cubic-bezier(0.16, 1, 0.3, 1);
 }
 
 html.light {
+  color-scheme: light;
+
   --bg: #f5f7f0;
   --bg-secondary: #edf1e7;
+  --bg-elevated: #ffffff;
+
   --fg: #151910;
-  --muted: #626c5e;
+  --muted: #66705f;
+  --muted-strong: #394333;
 
-  --accent: #3f6212;
-  --accent-fill: #ccff00;
-  --accent-soft: rgb(63 98 18 / 0.11);
+  --accent: #486d0b;
+  --accent-fill: #c8ff00;
+  --accent-soft: rgb(72 109 11 / 0.1);
+  --accent-glow: rgb(72 109 11 / 0.13);
 
-  --line: rgb(15 20 10 / 0.1);
-  --card: rgb(255 255 255 / 0.8);
+  --line: rgb(20 30 10 / 0.1);
+  --line-strong: rgb(20 30 10 / 0.17);
+
+  --card: rgb(255 255 255 / 0.76);
   --card-hover: #ffffff;
 
-  --grid: rgb(15 20 10 / 0.055);
-  --shadow: 0 25px 80px rgb(30 40 20 / 0.1);
+  --grid: rgb(20 30 10 / 0.055);
 
-  color-scheme: light;
+  --shadow:
+    0 25px 80px rgb(30 40 20 / 0.08), 0 1px 0 rgb(255 255 255 / 0.8) inset;
+
+  --shadow-accent: 0 15px 50px rgb(72 109 11 / 0.1);
 }
 
-/* ============================================
+/* =========================================================
    TAILWIND THEME
-   ============================================ */
+========================================================= */
 
 @theme inline {
   --color-bg: var(--bg);
   --color-bg-secondary: var(--bg-secondary);
+  --color-bg-elevated: var(--bg-elevated);
+
   --color-fg: var(--fg);
   --color-muted: var(--muted);
+
   --color-line: var(--line);
   --color-card: var(--card);
   --color-card-hover: var(--card-hover);
+
   --color-accent: var(--accent);
   --color-accent-fill: var(--accent-fill);
   --color-accent-soft: var(--accent-soft);
@@ -67,9 +99,9 @@ html.light {
   --font-mono: var(--font-geist-mono);
 }
 
-/* ============================================
-   GLOBAL RESET
-   ============================================ */
+/* =========================================================
+   RESET & BASE
+========================================================= */
 
 * {
   box-sizing: border-box;
@@ -77,18 +109,23 @@ html.light {
 
 html {
   scroll-behavior: smooth;
-  scroll-padding-top: 100px;
+  scroll-padding-top: 110px;
   background: var(--bg);
 }
 
 body {
   margin: 0;
+  min-height: 100vh;
+  overflow-x: hidden;
+
   background: var(--bg);
   color: var(--fg);
+
   font-family:
     var(--font-geist-sans), var(--font-noto-bengali), system-ui, sans-serif;
-  overflow-x: hidden;
+
   -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
   text-rendering: optimizeLegibility;
 }
 
@@ -99,12 +136,15 @@ body::selection,
 }
 
 button,
-a {
+a,
+input,
+textarea {
+  font: inherit;
   -webkit-tap-highlight-color: transparent;
 }
 
 button {
-  font: inherit;
+  cursor: pointer;
 }
 
 a {
@@ -112,28 +152,38 @@ a {
   text-decoration: none;
 }
 
-img {
+img,
+video,
+svg {
   display: block;
   max-width: 100%;
 }
 
-button,
-a,
-input,
-textarea {
-  outline-offset: 4px;
+img {
+  height: auto;
 }
 
 :focus-visible {
   outline: 2px solid var(--accent);
+  outline-offset: 5px;
 }
 
-/* ============================================
-   PREMIUM SCROLLBAR
-   ============================================ */
+::placeholder {
+  color: var(--muted);
+  opacity: 0.7;
+}
+
+::selection {
+  background: var(--accent);
+  color: #080908;
+}
+
+/* =========================================================
+   SCROLLBAR
+========================================================= */
 
 ::-webkit-scrollbar {
-  width: 8px;
+  width: 7px;
 }
 
 ::-webkit-scrollbar-track {
@@ -141,9 +191,9 @@ textarea {
 }
 
 ::-webkit-scrollbar-thumb {
-  background: #343a2b;
-  border-radius: 20px;
   border: 2px solid var(--bg);
+  border-radius: 20px;
+  background: #39412d;
 }
 
 ::-webkit-scrollbar-thumb:hover {
@@ -151,19 +201,19 @@ textarea {
 }
 
 html {
-  scrollbar-color: #343a2b var(--bg);
+  scrollbar-color: #39412d var(--bg);
   scrollbar-width: thin;
 }
 
-/* ============================================
-   SELECTION & TEXT
-   ============================================ */
+/* =========================================================
+   TYPOGRAPHY
+========================================================= */
 
 .text-gradient {
   background: linear-gradient(
-    120deg,
-    var(--fg) 10%,
-    var(--accent) 55%,
+    115deg,
+    var(--fg) 5%,
+    var(--accent) 52%,
     var(--fg) 100%
   );
   background-size: 200% auto;
@@ -173,14 +223,14 @@ html {
 }
 
 .display {
-  font-weight: 750;
-  letter-spacing: -0.065em;
+  font-weight: 760;
+  letter-spacing: -0.075em;
   line-height: 0.92;
   text-wrap: balance;
 }
 
 .display-xl {
-  font-size: clamp(3.5rem, 10vw, 9rem);
+  font-size: clamp(3.6rem, 10vw, 9.5rem);
 }
 
 .display-lg {
@@ -188,60 +238,74 @@ html {
 }
 
 .section-title {
-  font-size: clamp(2.5rem, 6vw, 5.5rem);
+  font-size: clamp(2.6rem, 6vw, 5.8rem);
   font-weight: 750;
-  letter-spacing: -0.065em;
+  letter-spacing: -0.07em;
   line-height: 0.98;
   text-wrap: balance;
 }
 
 .eyebrow {
   color: var(--accent);
-  font-size: 0.72rem;
-  font-weight: 700;
-  letter-spacing: 0.2em;
+  font-size: 0.7rem;
+  font-weight: 750;
+  letter-spacing: 0.23em;
   text-transform: uppercase;
 }
 
-/* ============================================
-   BACKGROUND ATMOSPHERE
-   ============================================ */
+.lead {
+  color: var(--muted);
+  font-size: clamp(0.95rem, 1.4vw, 1.1rem);
+  line-height: 1.85;
+}
+
+.text-balance {
+  text-wrap: balance;
+}
+
+.text-pretty {
+  text-wrap: pretty;
+}
+
+/* =========================================================
+   GLOBAL BACKGROUND ATMOSPHERE
+========================================================= */
 
 .bg-grid {
   background-image: radial-gradient(var(--grid) 1px, transparent 1px);
-  background-size: 32px 32px;
-  mask-image: radial-gradient(ellipse at center, black 15%, transparent 75%);
+  background-size: 34px 34px;
+
+  mask-image: radial-gradient(ellipse at center, black 10%, transparent 78%);
+
   -webkit-mask-image: radial-gradient(
     ellipse at center,
-    black 15%,
-    transparent 75%
+    black 10%,
+    transparent 78%
   );
 }
 
 .bg-gradient-premium {
   background:
+    radial-gradient(ellipse at 12% 8%, rgb(200 255 0 / 0.075), transparent 32%),
     radial-gradient(
-      ellipse at 15% 10%,
-      rgb(204 255 0 / 0.075),
-      transparent 35%
+      ellipse at 90% 45%,
+      rgb(100 140 35 / 0.055),
+      transparent 34%
     ),
-    radial-gradient(
-      ellipse at 85% 65%,
-      rgb(110 160 40 / 0.055),
-      transparent 35%
-    ),
-    var(--bg);
+    linear-gradient(180deg, var(--bg), var(--bg-secondary) 50%, var(--bg));
 }
 
 .ambient-light {
   position: absolute;
-  width: 400px;
-  height: 400px;
+  width: 420px;
+  height: 420px;
   border-radius: 50%;
-  background: rgb(204 255 0 / 0.1);
-  filter: blur(120px);
-  pointer-events: none;
+
+  background: rgb(200 255 0 / 0.09);
+  filter: blur(130px);
+
   opacity: 0.5;
+  pointer-events: none;
   will-change: transform;
 }
 
@@ -251,9 +315,19 @@ html {
   opacity: 0.45;
 }
 
-/* ============================================
+.section-glow {
+  position: absolute;
+  width: 300px;
+  height: 300px;
+  border-radius: 50%;
+  background: var(--accent-glow);
+  filter: blur(120px);
+  pointer-events: none;
+}
+
+/* =========================================================
    FILM GRAIN
-   ============================================ */
+========================================================= */
 
 .grain {
   position: relative;
@@ -266,46 +340,55 @@ html {
   inset: -50%;
   z-index: 45;
   pointer-events: none;
+
   background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 180 180'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.8' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='.3'/%3E%3C/svg%3E");
+
   opacity: 0.035;
   mix-blend-mode: overlay;
 }
 
 html.light .grain::after {
-  opacity: 0.025;
+  opacity: 0.02;
   mix-blend-mode: multiply;
 }
 
-/* ============================================
-   PREMIUM SURFACES
-   ============================================ */
+/* =========================================================
+   GLASS & PREMIUM SURFACES
+========================================================= */
 
 .glass {
-  background: rgb(255 255 255 / 0.035);
   border: 1px solid var(--line);
-  backdrop-filter: blur(20px);
-  -webkit-backdrop-filter: blur(20px);
+  background: rgb(255 255 255 / 0.035);
+  backdrop-filter: blur(22px);
+  -webkit-backdrop-filter: blur(22px);
 }
 
 html.light .glass {
-  background: rgb(255 255 255 / 0.72);
+  background: rgb(255 255 255 / 0.76);
 }
 
 .premium-card {
   position: relative;
   overflow: hidden;
+
   border: 1px solid var(--line);
+  border-radius: var(--radius-lg);
+
   background: var(--card);
+  box-shadow: var(--shadow);
+
   transition:
-    border-color 0.45s ease,
-    background-color 0.45s ease,
-    box-shadow 0.45s ease;
+    border-color 0.5s var(--ease-premium),
+    background-color 0.5s var(--ease-premium),
+    box-shadow 0.5s var(--ease-premium),
+    transform 0.5s var(--ease-premium);
 }
 
 .premium-card:hover {
-  border-color: rgb(204 255 0 / 0.35);
+  border-color: rgb(200 255 0 / 0.35);
   background: var(--card-hover);
-  box-shadow: var(--shadow);
+  box-shadow: var(--shadow), var(--shadow-accent);
+  transform: translateY(-5px);
 }
 
 .card-spotlight {
@@ -319,12 +402,15 @@ html.light .glass {
   inset: 0;
   z-index: 2;
   pointer-events: none;
+
   opacity: 0;
+
   background: radial-gradient(
     450px circle at var(--mouse-x, 50%) var(--mouse-y, 50%),
-    rgb(204 255 0 / 0.11),
+    rgb(200 255 0 / 0.11),
     transparent 45%
   );
+
   transition: opacity 0.4s ease;
 }
 
@@ -332,29 +418,55 @@ html.light .glass {
   opacity: 1;
 }
 
-/* ============================================
-   BUTTON INTERACTIONS
-   ============================================ */
+.surface {
+  border: 1px solid var(--line);
+  background: var(--card);
+  box-shadow: var(--shadow);
+}
+
+.surface-hover {
+  transition:
+    border-color 0.35s ease,
+    background 0.35s ease,
+    transform 0.35s ease;
+}
+
+.surface-hover:hover {
+  border-color: rgb(200 255 0 / 0.35);
+  background: var(--card-hover);
+  transform: translateY(-4px);
+}
+
+/* =========================================================
+   BUTTONS
+========================================================= */
 
 .btn-premium {
+  position: relative;
   display: inline-flex;
   align-items: center;
   justify-content: center;
   gap: 10px;
-  padding: 15px 27px;
+
+  overflow: hidden;
+
+  padding: 15px 28px;
+  border: 1px solid transparent;
   border-radius: 999px;
+
   background: var(--accent-fill);
   color: #080908;
-  font-weight: 700;
+
+  font-weight: 750;
   transition:
-    transform 0.35s cubic-bezier(0.2, 0.8, 0.2, 1),
-    box-shadow 0.35s ease,
-    filter 0.35s ease;
+    transform 0.4s var(--ease-premium),
+    box-shadow 0.4s ease,
+    filter 0.4s ease;
 }
 
 .btn-premium:hover {
   transform: translateY(-4px);
-  box-shadow: 0 12px 35px rgb(204 255 0 / 0.2);
+  box-shadow: 0 12px 38px rgb(200 255 0 / 0.22);
   filter: brightness(1.06);
 }
 
@@ -367,11 +479,15 @@ html.light .glass {
   align-items: center;
   justify-content: center;
   gap: 10px;
-  padding: 14px 26px;
-  border: 1px solid var(--line);
+
+  padding: 14px 27px;
+  border: 1px solid var(--line-strong);
   border-radius: 999px;
+
   color: var(--fg);
-  transition: all 0.35s ease;
+  background: transparent;
+
+  transition: all 0.35s var(--ease-premium);
 }
 
 .btn-outline:hover {
@@ -380,21 +496,27 @@ html.light .glass {
   transform: translateY(-3px);
 }
 
-/* ============================================
+.btn-small {
+  padding: 10px 17px;
+  font-size: 0.82rem;
+}
+
+/* =========================================================
    IMAGE INTERACTIONS
-   ============================================ */
+========================================================= */
 
 .image-reveal {
-  overflow: hidden;
   position: relative;
+  overflow: hidden;
 }
 
 .image-reveal img {
   width: 100%;
   height: 100%;
   object-fit: cover;
+
   transition:
-    transform 0.9s cubic-bezier(0.2, 0.8, 0.2, 1),
+    transform 1s var(--ease-premium),
     filter 0.6s ease;
 }
 
@@ -402,16 +524,17 @@ html.light .glass {
   transform: scale(1.07);
 }
 
-/* ============================================
+/* =========================================================
    SCROLL REVEALS
-   ============================================ */
+========================================================= */
 
 .reveal {
   opacity: 0;
   transform: translateY(35px);
+
   transition:
     opacity 0.85s ease,
-    transform 0.85s cubic-bezier(0.16, 1, 0.3, 1);
+    transform 0.85s var(--ease-premium);
 }
 
 .reveal-in {
@@ -422,19 +545,19 @@ html.light .glass {
 .reveal-left {
   opacity: 0;
   transform: translateX(-45px);
-  transition: all 0.9s cubic-bezier(0.16, 1, 0.3, 1);
+  transition: all 0.9s var(--ease-premium);
 }
 
 .reveal-right {
   opacity: 0;
   transform: translateX(45px);
-  transition: all 0.9s cubic-bezier(0.16, 1, 0.3, 1);
+  transition: all 0.9s var(--ease-premium);
 }
 
 .reveal-scale {
   opacity: 0;
   transform: scale(0.92);
-  transition: all 0.9s cubic-bezier(0.16, 1, 0.3, 1);
+  transition: all 0.9s var(--ease-premium);
 }
 
 .reveal-left.reveal-in,
@@ -444,9 +567,9 @@ html.light .glass {
   transform: none;
 }
 
-/* ============================================
+/* =========================================================
    HERO ANIMATIONS
-   ============================================ */
+========================================================= */
 
 @keyframes hero-fade-up {
   from {
@@ -454,6 +577,7 @@ html.light .glass {
     transform: translateY(35px);
     filter: blur(8px);
   }
+
   to {
     opacity: 1;
     transform: translateY(0);
@@ -462,21 +586,25 @@ html.light .glass {
 }
 
 .hero-fade {
-  animation: hero-fade-up 1s cubic-bezier(0.16, 1, 0.3, 1) both;
+  animation: hero-fade-up 1s var(--ease-premium) both;
 }
 
 .hero-fade-1 {
   animation-delay: 0.1s;
 }
+
 .hero-fade-2 {
   animation-delay: 0.2s;
 }
+
 .hero-fade-3 {
   animation-delay: 0.3s;
 }
+
 .hero-fade-4 {
   animation-delay: 0.4s;
 }
+
 .hero-fade-5 {
   animation-delay: 0.5s;
 }
@@ -486,6 +614,7 @@ html.light .glass {
   100% {
     transform: translateY(0);
   }
+
   50% {
     transform: translateY(-16px);
   }
@@ -502,10 +631,11 @@ html.light .glass {
 @keyframes pulse-glow {
   0%,
   100% {
-    box-shadow: 0 0 0 0 rgb(204 255 0 / 0.1);
+    box-shadow: 0 0 0 0 rgb(200 255 0 / 0.1);
   }
+
   50% {
-    box-shadow: 0 0 25px 4px rgb(204 255 0 / 0.17);
+    box-shadow: 0 0 25px 4px rgb(200 255 0 / 0.17);
   }
 }
 
@@ -513,9 +643,9 @@ html.light .glass {
   animation: pulse-glow 3s ease-in-out infinite;
 }
 
-/* ============================================
+/* =========================================================
    ANIMATED TEXT
-   ============================================ */
+========================================================= */
 
 @keyframes caret-blink {
   50% {
@@ -540,21 +670,24 @@ html.light .glass {
     var(--accent) 40%,
     var(--fg) 60%
   );
+
   background-size: 200% auto;
   background-clip: text;
   -webkit-background-clip: text;
   color: transparent;
+
   animation: text-shimmer 5s linear infinite;
 }
 
-/* ============================================
+/* =========================================================
    MARQUEE
-   ============================================ */
+========================================================= */
 
 @keyframes marquee {
   from {
     transform: translateX(0);
   }
+
   to {
     transform: translateX(-50%);
   }
@@ -562,6 +695,7 @@ html.light .glass {
 
 .marquee {
   overflow: hidden;
+
   mask-image: linear-gradient(
     to right,
     transparent,
@@ -581,9 +715,9 @@ html.light .glass {
   animation-play-state: paused;
 }
 
-/* ============================================
+/* =========================================================
    3D INTERACTION FOUNDATION
-   ============================================ */
+========================================================= */
 
 .perspective-container {
   perspective: 1200px;
@@ -608,17 +742,18 @@ html.light .glass {
   transform: translateZ(15px);
 }
 
-/* ============================================
-   CUSTOM CURSOR FOUNDATION
-   ============================================ */
+/* =========================================================
+   CUSTOM CURSOR
+========================================================= */
 
 .custom-cursor {
   position: fixed;
   top: 0;
   left: 0;
   z-index: 100;
-  pointer-events: none;
+
   border-radius: 50%;
+  pointer-events: none;
   will-change: transform;
 }
 
@@ -631,7 +766,9 @@ html.light .glass {
 .cursor-outline {
   width: 38px;
   height: 38px;
-  border: 1px solid rgb(204 255 0 / 0.65);
+
+  border: 1px solid rgb(200 255 0 / 0.65);
+
   transition:
     width 0.3s ease,
     height 0.3s ease,
@@ -641,23 +778,24 @@ html.light .glass {
 .cursor-hover {
   width: 65px;
   height: 65px;
-  background: rgb(204 255 0 / 0.08);
+  background: rgb(200 255 0 / 0.08);
 }
 
-/* ============================================
+/* =========================================================
    NAVIGATION
-   ============================================ */
+========================================================= */
 
 .nav-glass {
-  background: rgb(8 9 8 / 0.75);
   border: 1px solid rgb(255 255 255 / 0.08);
-  backdrop-filter: blur(22px);
-  -webkit-backdrop-filter: blur(22px);
+  background: rgb(7 9 7 / 0.78);
+
+  backdrop-filter: blur(24px);
+  -webkit-backdrop-filter: blur(24px);
 }
 
 html.light .nav-glass {
-  background: rgb(245 247 240 / 0.82);
   border-color: var(--line);
+  background: rgb(245 247 240 / 0.86);
 }
 
 .nav-link {
@@ -669,30 +807,32 @@ html.light .nav-glass {
   content: "";
   position: absolute;
   left: 0;
-  bottom: -5px;
+  bottom: -6px;
+
   width: 0;
   height: 2px;
+
   background: var(--accent);
-  transition: width 0.35s ease;
+  transition: width 0.35s var(--ease-premium);
 }
 
 .nav-link:hover::after {
   width: 100%;
 }
 
-/* ============================================
-   SECTION DESIGN
-   ============================================ */
+/* =========================================================
+   SECTIONS
+========================================================= */
 
 .section-shell {
   position: relative;
-  padding: 110px 24px;
+  padding: 120px 24px;
   border-top: 1px solid var(--line);
 }
 
 .section-container {
   width: 100%;
-  max-width: 1280px;
+  max-width: var(--container-width);
   margin-inline: auto;
 }
 
@@ -700,10 +840,12 @@ html.light .nav-glass {
   display: flex;
   align-items: center;
   gap: 12px;
+
   margin-bottom: 18px;
+
   color: var(--accent);
   font-size: 12px;
-  font-weight: 700;
+  font-weight: 750;
   letter-spacing: 0.2em;
   text-transform: uppercase;
 }
@@ -718,20 +860,23 @@ html.light .nav-glass {
 .section-lead {
   max-width: 650px;
   margin-top: 24px;
+
   color: var(--muted);
   font-size: 17px;
-  line-height: 1.8;
+  line-height: 1.85;
 }
 
-/* ============================================
+/* =========================================================
    STATUS INDICATOR
-   ============================================ */
+========================================================= */
 
 .status-dot {
   position: relative;
+
   width: 8px;
   height: 8px;
   flex-shrink: 0;
+
   border-radius: 50%;
   background: var(--accent);
 }
@@ -740,8 +885,10 @@ html.light .nav-glass {
   content: "";
   position: absolute;
   inset: -5px;
+
   border: 1px solid var(--accent);
   border-radius: 50%;
+
   animation: status-ping 2s ease-out infinite;
 }
 
@@ -750,15 +897,16 @@ html.light .nav-glass {
     transform: scale(0.7);
     opacity: 0.8;
   }
+
   100% {
     transform: scale(2.3);
     opacity: 0;
   }
 }
 
-/* ============================================
+/* =========================================================
    THEME TRANSITION
-   ============================================ */
+========================================================= */
 
 html.theme-anim,
 html.theme-anim *,
@@ -772,13 +920,27 @@ html.theme-anim *::after {
     stroke 0.3s ease !important;
 }
 
-/* ============================================
+/* =========================================================
    RESPONSIVE
-   ============================================ */
+========================================================= */
+
+@media (max-width: 1024px) {
+  .section-shell {
+    padding: 100px 24px;
+  }
+
+  .display {
+    letter-spacing: -0.06em;
+  }
+}
 
 @media (max-width: 768px) {
+  :root {
+    --nav-height: 68px;
+  }
+
   .section-shell {
-    padding: 80px 20px;
+    padding: 82px 20px;
   }
 
   .display {
@@ -798,17 +960,48 @@ html.theme-anim *::after {
   .custom-cursor {
     display: none;
   }
+
+  .premium-card:hover {
+    transform: none;
+  }
 }
+
+@media (max-width: 480px) {
+  .section-shell {
+    padding: 72px 18px;
+  }
+
+  .display-xl {
+    font-size: clamp(3.2rem, 15vw, 5rem);
+  }
+
+  .section-title {
+    letter-spacing: -0.055em;
+  }
+
+  .btn-premium,
+  .btn-outline {
+    padding: 12px 21px;
+  }
+}
+
+/* =========================================================
+   POINTER & TOUCH
+========================================================= */
 
 @media (hover: none), (pointer: coarse) {
   .custom-cursor {
     display: none;
   }
+
+  .card-spotlight::before {
+    display: none;
+  }
 }
 
-/* ============================================
+/* =========================================================
    ACCESSIBILITY / REDUCED MOTION
-   ============================================ */
+========================================================= */
 
 @media (prefers-reduced-motion: reduce) {
   html {
@@ -837,5 +1030,9 @@ html.theme-anim *::after {
     opacity: 1;
     transform: none;
     filter: none;
+  }
+
+  .marquee-track {
+    animation: none;
   }
 }

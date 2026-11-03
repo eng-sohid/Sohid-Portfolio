@@ -5,14 +5,14 @@ import { Canvas, useFrame } from "@react-three/fiber";
 import { Float, Sparkles } from "@react-three/drei";
 import * as THREE from "three";
 
-function ParticleField() {
+function ParticleField({ reducedMotion = false }: { reducedMotion?: boolean }) {
   const pointsRef = useRef<THREE.Points>(null);
 
   const positions = useMemo(() => {
     const count = 500;
     const array = new Float32Array(count * 3);
 
-    // Deterministic values: safe during React rendering
+    // Deterministic random values.
     const random = (seed: number) => {
       const value = Math.sin(seed * 127.1) * 43758.5453;
       return value - Math.floor(value);
@@ -31,7 +31,7 @@ function ParticleField() {
   }, []);
 
   useFrame((state, delta) => {
-    if (!pointsRef.current) return;
+    if (!pointsRef.current || reducedMotion) return;
 
     pointsRef.current.rotation.y += delta * 0.025;
     pointsRef.current.rotation.x =
@@ -56,11 +56,17 @@ function ParticleField() {
   );
 }
 
-function OrbitalStructure() {
+function OrbitalStructure({
+  reducedMotion = false,
+}: {
+  reducedMotion?: boolean;
+}) {
   const groupRef = useRef<THREE.Group>(null);
   const innerRef = useRef<THREE.Mesh>(null);
 
   useFrame((_, delta) => {
+    if (reducedMotion) return;
+
     if (groupRef.current) {
       groupRef.current.rotation.y += delta * 0.12;
       groupRef.current.rotation.z += delta * 0.04;
@@ -84,7 +90,11 @@ function OrbitalStructure() {
         <meshBasicMaterial color="#a6d900" transparent opacity={0.3} />
       </mesh>
 
-      <Float speed={1.5} rotationIntensity={0.5} floatIntensity={0.7}>
+      <Float
+        speed={reducedMotion ? 0 : 1.5}
+        rotationIntensity={reducedMotion ? 0 : 0.5}
+        floatIntensity={reducedMotion ? 0 : 0.7}
+      >
         <mesh ref={innerRef}>
           <icosahedronGeometry args={[0.62, 2]} />
           <meshStandardMaterial
@@ -106,29 +116,37 @@ function OrbitalStructure() {
   );
 }
 
-function Scene() {
+function Scene({ reducedMotion = false }: { reducedMotion?: boolean }) {
   return (
     <>
       <ambientLight intensity={0.7} />
 
       <pointLight position={[2, 2, 3]} color="#ccff00" intensity={2} />
 
-      <ParticleField />
-      <OrbitalStructure />
+      <ParticleField reducedMotion={reducedMotion} />
+      <OrbitalStructure reducedMotion={reducedMotion} />
 
-      <Sparkles
-        count={45}
-        scale={5}
-        size={2}
-        speed={0.25}
-        color="#ccff00"
-        opacity={0.6}
-      />
+      {!reducedMotion && (
+        <Sparkles
+          count={45}
+          scale={5}
+          size={2}
+          speed={0.25}
+          color="#ccff00"
+          opacity={0.6}
+        />
+      )}
     </>
   );
 }
 
 export default function HeroBackground() {
+  const reducedMotion = useMemo(() => {
+    if (typeof window === "undefined") return false;
+
+    return window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+  }, []);
+
   return (
     <div
       className="pointer-events-none absolute inset-0 -z-0 overflow-hidden"
@@ -139,13 +157,14 @@ export default function HeroBackground() {
       <Canvas
         camera={{ position: [0, 0, 6], fov: 45 }}
         dpr={[1, 1.5]}
+        frameloop={reducedMotion ? "demand" : "always"}
         gl={{
           alpha: true,
           antialias: true,
           powerPreference: "high-performance",
         }}
       >
-        <Scene />
+        <Scene reducedMotion={reducedMotion} />
       </Canvas>
     </div>
   );

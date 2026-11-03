@@ -10,8 +10,8 @@ const socials = [
 
 export default function Footer() {
   return (
-    <footer className="relative overflow-hidden border-t border-line bg-bg px-6 pb-8 pt-14">
-      {/* Subtle background glow */}
+    <footer className="relative overflow-hidden border-t border-line bg-bg px-6 pb-8 pt-16">
+      {/* Background glow */}
       <div
         aria-hidden="true"
         className="pointer-events-none absolute -bottom-32 left-1/2 h-64 w-[500px] -translate-x-1/2 rounded-full bg-accent/5 blur-[120px]"
@@ -19,12 +19,12 @@ export default function Footer() {
 
       <div className="relative mx-auto max-w-6xl">
         {/* Main footer */}
-        <div className="flex flex-col gap-10 md:flex-row md:items-start md:justify-between">
+        <div className="flex flex-col gap-12 md:flex-row md:items-start md:justify-between">
           {/* Brand */}
           <div className="max-w-sm">
             <a
               href="#home"
-              className="group inline-flex items-center text-2xl font-bold tracking-tight text-fg"
+              className="group inline-flex items-center text-3xl font-bold tracking-tight text-fg"
               aria-label="Sohid Mondol, back to top"
             >
               Sohid
@@ -33,14 +33,16 @@ export default function Footer() {
               </span>
             </a>
 
-            <p className="mt-2 text-sm text-muted">Full-Stack Web Developer</p>
+            <p className="mt-2 text-sm font-medium text-accent/80">
+              Full-Stack Web Developer
+            </p>
 
             <p className="mt-5 max-w-xs text-sm leading-relaxed text-muted/70">
               Building digital experiences with creativity, curiosity, and code.
             </p>
 
             {/* Social links */}
-            <ul className="mt-6 flex gap-3">
+            <ul className="mt-7 flex gap-3">
               {socials.map((social) => {
                 const Icon = social.icon;
                 const isEmail = social.href.startsWith("mailto:");
@@ -57,9 +59,9 @@ export default function Footer() {
                         : {})}
                       aria-label={social.label}
                       title={social.label}
-                      className="flex h-10 w-10 items-center justify-center rounded-xl border border-line bg-card text-muted transition-all duration-300 hover:-translate-y-1 hover:border-accent/50 hover:bg-accent/5 hover:text-accent"
+                      className="flex h-11 w-11 items-center justify-center rounded-xl border border-line bg-card text-muted transition-all duration-300 hover:-translate-y-1 hover:border-accent/50 hover:bg-accent/5 hover:text-accent hover:shadow-[0_8px_25px_rgba(204,255,0,0.06)]"
                     >
-                      <Icon size={17} />
+                      <Icon size={18} />
                     </a>
                   </li>
                 );
@@ -69,12 +71,12 @@ export default function Footer() {
 
           {/* Navigation */}
           <div className="md:pt-2">
-            <p className="mb-5 text-xs font-semibold uppercase tracking-[0.2em] text-muted">
+            <p className="mb-6 text-xs font-semibold uppercase tracking-[0.2em] text-muted">
               Navigation
             </p>
 
             <nav aria-label="Footer navigation">
-              <ul className="grid grid-cols-2 gap-x-12 gap-y-4 text-sm sm:gap-x-16">
+              <ul className="grid grid-cols-2 gap-x-12 gap-y-5 text-sm sm:gap-x-16">
                 {navLinks.map((link) => (
                   <li key={link.href}>
                     <a
@@ -85,7 +87,6 @@ export default function Footer() {
                         aria-hidden="true"
                         className="h-1 w-1 rounded-full bg-accent/40 transition-all duration-300 group-hover:scale-150 group-hover:bg-accent"
                       />
-
                       {link.label}
                     </a>
                   </li>
@@ -106,10 +107,29 @@ export default function Footer() {
               </ul>
             </nav>
           </div>
+
+          {/* Back to top */}
+          <div className="md:pt-2">
+            <p className="mb-6 text-xs font-semibold uppercase tracking-[0.2em] text-muted">
+              Let&apos;s connect
+            </p>
+
+            <a
+              href={`mailto:${site.email}`}
+              className="group inline-flex items-center gap-2 text-sm font-medium text-fg transition-colors duration-300 hover:text-accent"
+            >
+              Get in touch
+              <span className="text-accent transition-transform duration-300 group-hover:-translate-y-1 group-hover:translate-x-1">
+                ↗
+              </span>
+            </a>
+
+            <p className="mt-3 text-xs text-muted/60">{site.email}</p>
+          </div>
         </div>
 
         {/* Copyright */}
-        <div className="mt-14 flex flex-col gap-4 border-t border-line pt-6 text-xs text-muted/70 sm:flex-row sm:items-center sm:justify-between">
+        <div className="mt-16 flex flex-col gap-5 border-t border-line pt-7 text-xs text-muted/70 sm:flex-row sm:items-center sm:justify-between">
           <p>
             © <CurrentYear /> {site.name}. All rights reserved.
           </p>

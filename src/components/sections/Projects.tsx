@@ -15,15 +15,19 @@ import { ArrowUpRight, GitHubIcon } from "../../components/icons";
 
 export default function Projects() {
   return (
-    <section id="projects" className={`${section} relative overflow-hidden`}>
+    <section
+      id="projects"
+      aria-labelledby="projects-heading"
+      className={`${section} relative overflow-hidden`}
+    >
       {/* Background atmosphere */}
       <div
         aria-hidden="true"
         className="pointer-events-none absolute -right-40 top-20 h-96 w-96 rounded-full bg-accent/5 blur-[130px]"
       />
 
-      <div className={container}>
-        {/* Section Heading */}
+      <div className={`${container} relative`}>
+        {/* Section heading */}
         <Reveal>
           <div className="flex flex-col justify-between gap-5 sm:flex-row sm:items-end">
             <div>
@@ -32,7 +36,7 @@ export default function Projects() {
                 <span aria-hidden="true" className="h-px w-8 bg-accent/50" />
               </p>
 
-              <h2 className={h2}>
+              <h2 id="projects-heading" className={h2}>
                 Selected <span className="text-accent">work.</span>
               </h2>
 
@@ -49,7 +53,7 @@ export default function Projects() {
           </div>
         </Reveal>
 
-        {/* Project Grid */}
+        {/* Project grid */}
         <div className="mt-14 grid gap-7 md:grid-cols-2">
           {projects.map((p, i) => {
             const featured = i === 0;
@@ -65,7 +69,7 @@ export default function Projects() {
                     featured ? "md:flex-row" : ""
                   }`}
                 >
-                  {/* Project Visual */}
+                  {/* Project visual */}
                   <div
                     className={`relative isolate overflow-hidden bg-gradient-to-br ${p.gradient} to-transparent ${
                       featured
@@ -85,7 +89,7 @@ export default function Projects() {
                       className="absolute left-1/2 top-1/2 h-52 w-52 -translate-x-1/2 -translate-y-1/2 rounded-full bg-accent/10 blur-[70px] transition-all duration-700 group-hover:scale-150 group-hover:bg-accent/20"
                     />
 
-                    {/* Large Bengali title */}
+                    {/* Bengali title decoration */}
                     <span
                       aria-hidden="true"
                       className="absolute -bottom-4 left-5 select-none font-[family-name:var(--font-noto-bengali)] text-6xl font-bold text-fg/[0.07] transition-all duration-500 group-hover:-translate-y-3 group-hover:text-fg/[0.13] sm:text-8xl md:left-8"
@@ -115,7 +119,7 @@ export default function Projects() {
                     <div className="absolute inset-x-0 bottom-0 h-px origin-left scale-x-0 bg-accent transition-transform duration-700 group-hover:scale-x-100" />
                   </div>
 
-                  {/* Project Details */}
+                  {/* Project details */}
                   <div
                     className={`relative flex flex-1 flex-col p-6 sm:p-8 ${
                       featured ? "md:justify-center md:p-10" : ""
@@ -155,7 +159,7 @@ export default function Projects() {
                       ))}
                     </ul>
 
-                    {/* Project Links */}
+                    {/* Project links */}
                     <div className="mt-8 flex flex-wrap items-center gap-3">
                       {p.demo && (
                         <a

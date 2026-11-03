@@ -1,10 +1,9 @@
 import Image from "next/image";
 import Reveal from "../../components/Reveal";
 import { skillGroups, techLogoUrl } from "../../data/site";
-
 import { section, container, kicker, h2, card } from "../../lib/styles";
 
-// All skills are repeated to create a seamless marquee.
+// Repeat skills to create a seamless marquee.
 const marqueeItems = skillGroups.flatMap((group) => group.items);
 
 function Logo({
@@ -23,14 +22,22 @@ function Logo({
       width={size}
       height={size}
       unoptimized
-      className={lightLogo ? "rounded-sm bg-white p-0.5" : "object-contain"}
+      className={
+        lightLogo
+          ? "rounded-sm bg-white p-0.5 object-contain"
+          : "object-contain"
+      }
     />
   );
 }
 
 export default function Skills() {
   return (
-    <section id="skills" className={`${section} relative overflow-hidden`}>
+    <section
+      id="skills"
+      aria-labelledby="skills-heading"
+      className={`${section} relative overflow-hidden`}
+    >
       {/* Background atmosphere */}
       <div
         aria-hidden="true"
@@ -47,7 +54,7 @@ export default function Skills() {
                 <span aria-hidden="true" className="h-px w-8 bg-accent/50" />
               </p>
 
-              <h2 className={`${h2} max-w-2xl`}>
+              <h2 id="skills-heading" className={`${h2} max-w-2xl`}>
                 Tools I build <span className="text-accent">with.</span>
               </h2>
             </div>
@@ -132,7 +139,7 @@ export default function Skills() {
         {/* Technology marquee */}
         <Reveal delay={200}>
           <div className="mt-16">
-            <div className="mb-5 flex items-center justify-between">
+            <div className="mb-5 flex items-center justify-between gap-4">
               <p className="text-xs font-semibold uppercase tracking-[0.2em] text-muted">
                 Technologies I work with
               </p>

@@ -21,12 +21,12 @@ export default function Cursor() {
 
     const moveX = gsap.quickTo(cursor, "x", {
       duration: 0.45,
-      ease: "power3",
+      ease: "power3.out",
     });
 
     const moveY = gsap.quickTo(cursor, "y", {
       duration: 0.45,
-      ease: "power3",
+      ease: "power3.out",
     });
 
     const dotX = gsap.quickTo(dot, "x", {
@@ -39,60 +39,88 @@ export default function Cursor() {
       ease: "power2.out",
     });
 
-    const handleMouseMove = (event: MouseEvent) => {
+    gsap.set([cursor, dot], {
+      xPercent: -50,
+      yPercent: -50,
+      autoAlpha: 0,
+    });
+
+    const showCursor = () => {
+      gsap.to([cursor, dot], {
+        autoAlpha: 1,
+        duration: 0.2,
+        overwrite: true,
+      });
+    };
+
+    const hideCursor = () => {
+      gsap.to([cursor, dot], {
+        autoAlpha: 0,
+        duration: 0.2,
+        overwrite: true,
+      });
+    };
+
+    const handlePointerMove = (event: PointerEvent) => {
       moveX(event.clientX);
       moveY(event.clientY);
+
       dotX(event.clientX);
       dotY(event.clientY);
+
+      showCursor();
     };
 
-    const handleMouseEnter = () => {
-      gsap.to(cursor, {
-        scale: 1.7,
-        duration: 0.3,
-        ease: "power2.out",
-      });
+    const handlePointerOver = (event: PointerEvent) => {
+      const target = event.target;
+
+      if (!(target instanceof Element)) return;
+
+      const interactive = target.closest(
+        "a, button, input, textarea, select, [role='button']",
+      );
+
+      if (interactive) {
+        gsap.to(cursor, {
+          scale: 1.7,
+          duration: 0.3,
+          ease: "power2.out",
+          overwrite: true,
+        });
+      }
     };
 
-    const handleMouseLeave = () => {
-      gsap.to(cursor, {
-        scale: 1,
-        duration: 0.3,
-        ease: "power2.out",
-      });
+    const handlePointerOut = (event: PointerEvent) => {
+      const target = event.target;
+
+      if (!(target instanceof Element)) return;
+
+      const interactive = target.closest(
+        "a, button, input, textarea, select, [role='button']",
+      );
+
+      if (interactive) {
+        gsap.to(cursor, {
+          scale: 1,
+          duration: 0.3,
+          ease: "power2.out",
+          overwrite: true,
+        });
+      }
     };
 
-    const interactiveElements = document.querySelectorAll(
-      "a, button, input, textarea, select, [role='button']",
-    );
-
-    window.addEventListener("mousemove", handleMouseMove);
-
-    interactiveElements.forEach((element) => {
-      element.addEventListener("mouseenter", handleMouseEnter);
-      element.addEventListener("mouseleave", handleMouseLeave);
-    });
-
-    gsap.set(cursor, {
-      xPercent: -50,
-      yPercent: -50,
-    });
-
-    gsap.set(dot, {
-      xPercent: -50,
-      yPercent: -50,
-    });
+    window.addEventListener("pointermove", handlePointerMove);
+    window.addEventListener("pointerover", handlePointerOver);
+    window.addEventListener("pointerout", handlePointerOut);
+    window.addEventListener("pointerleave", hideCursor);
 
     return () => {
-      window.removeEventListener("mousemove", handleMouseMove);
+      window.removeEventListener("pointermove", handlePointerMove);
+      window.removeEventListener("pointerover", handlePointerOver);
+      window.removeEventListener("pointerout", handlePointerOut);
+      window.removeEventListener("pointerleave", hideCursor);
 
-      interactiveElements.forEach((element) => {
-        element.removeEventListener("mouseenter", handleMouseEnter);
-        element.removeEventListener("mouseleave", handleMouseLeave);
-      });
-
-      gsap.killTweensOf(cursor);
-      gsap.killTweensOf(dot);
+      gsap.killTweensOf([cursor, dot]);
     };
   }, []);
 
@@ -100,13 +128,13 @@ export default function Cursor() {
     <>
       <div
         ref={cursorRef}
-        className="pointer-events-none fixed left-0 top-0 z-[300] hidden h-10 w-10 rounded-full border border-accent/70 lg:block"
+        className="pointer-events-none fixed left-0 top-0 z-[300] hidden h-10 w-10 rounded-full border border-accent/70 opacity-0 lg:block"
         aria-hidden="true"
       />
 
       <div
         ref={dotRef}
-        className="pointer-events-none fixed left-0 top-0 z-[301] hidden h-1.5 w-1.5 rounded-full bg-accent lg:block"
+        className="pointer-events-none fixed left-0 top-0 z-[301] hidden h-1.5 w-1.5 rounded-full bg-accent opacity-0 lg:block"
         aria-hidden="true"
       />
     </>

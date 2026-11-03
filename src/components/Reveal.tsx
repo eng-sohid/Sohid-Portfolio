@@ -25,12 +25,16 @@ export default function Reveal({
     );
 
     if (prefersReducedMotion.matches) {
-      // Defer the update so it does not run synchronously inside the effect.
-      const frame = window.requestAnimationFrame(() => setShown(true));
-      return () => window.cancelAnimationFrame(frame);
+      const frame = window.requestAnimationFrame(() => {
+        setShown(true);
+      });
+
+      return () => {
+        window.cancelAnimationFrame(frame);
+      };
     }
 
-    // Reveal when the element enters the viewport.
+    // Reveal element when it enters the viewport.
     const observer = new IntersectionObserver(
       ([entry]) => {
         if (entry.isIntersecting) {
