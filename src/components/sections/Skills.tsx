@@ -1,5 +1,6 @@
 import Image from "next/image";
 import Reveal from "../../components/Reveal";
+import MaskText from "../../components/motion/MaskText";
 import { skillGroups, techLogoUrl } from "../../data/site";
 import { section, container, kicker, h2, card } from "../../lib/styles";
 
@@ -41,6 +42,7 @@ export default function Skills() {
       {/* Background atmosphere */}
       <div
         aria-hidden="true"
+        data-parallax="0.12"
         className="pointer-events-none absolute -right-40 top-20 h-96 w-96 rounded-full bg-accent/5 blur-[130px]"
       />
 
@@ -55,7 +57,9 @@ export default function Skills() {
               </p>
 
               <h2 id="skills-heading" className={`${h2} max-w-2xl`}>
-                Tools I build <span className="text-accent">with.</span>
+                <MaskText className="block">
+                  Tools I build <span className="text-accent">with.</span>
+                </MaskText>
               </h2>
             </div>
 

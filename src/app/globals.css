@@ -1,28 +1,33 @@
 @import "tailwindcss";
 
+/* Light-mode variant driven by the existing html.light theme class,
+   so utilities like `light:bg-white/55` match the theme system. */
+@custom-variant light (&:where(html.light, html.light *));
+
 /* =========================================================
-   SOHID — SIGNATURE PREMIUM DESIGN SYSTEM
-   Dark / Lime / Minimal / Cinematic
+   SOHID — PREMIUM PORTFOLIO DESIGN SYSTEM
+   Charcoal / Teal / Clean / Responsive
 ========================================================= */
 
 :root {
   color-scheme: dark;
 
-  --bg: #070907;
-  --bg-secondary: #0b0f0a;
-  --bg-elevated: #10150e;
+  --bg: #0b1113;
+  --bg-secondary: #101a1d;
+  --bg-elevated: #172326;
 
-  --fg: #f5f7ef;
-  --muted: #929b8b;
-  --muted-strong: #bac2b2;
+  --fg: #f1f6f5;
+  --muted: #a0b0af;
+  --muted-strong: #c5d1cf;
 
-  --accent: #c8ff00;
-  --accent-fill: #c8ff00;
-  --accent-soft: rgb(200 255 0 / 0.1);
-  --accent-glow: rgb(200 255 0 / 0.16);
+  --accent: #45d6c5;
+  --accent-fill: #45d6c5;
+  --accent-contrast: #062522;
+  --accent-soft: rgb(69 214 197 / 0.11);
+  --accent-glow: rgb(69 214 197 / 0.16);
 
-  --line: rgb(255 255 255 / 0.085);
-  --line-strong: rgb(255 255 255 / 0.14);
+  --line: rgb(255 255 255 / 0.09);
+  --line-strong: rgb(255 255 255 / 0.16);
 
   --card: rgb(255 255 255 / 0.035);
   --card-hover: rgb(255 255 255 / 0.065);
@@ -30,9 +35,9 @@
   --grid: rgb(255 255 255 / 0.045);
 
   --shadow:
-    0 25px 80px rgb(0 0 0 / 0.35), 0 1px 0 rgb(255 255 255 / 0.035) inset;
+    0 24px 70px rgb(0 0 0 / 0.28), 0 1px 0 rgb(255 255 255 / 0.035) inset;
 
-  --shadow-accent: 0 15px 50px rgb(200 255 0 / 0.09);
+  --shadow-accent: 0 15px 45px rgb(69 214 197 / 0.1);
 
   --radius-sm: 12px;
   --radius-md: 18px;
@@ -48,31 +53,32 @@
 html.light {
   color-scheme: light;
 
-  --bg: #f5f7f0;
-  --bg-secondary: #edf1e7;
+  --bg: #f7faf9;
+  --bg-secondary: #edf4f2;
   --bg-elevated: #ffffff;
 
-  --fg: #151910;
-  --muted: #66705f;
-  --muted-strong: #394333;
+  --fg: #142321;
+  --muted: #586b68;
+  --muted-strong: #344844;
 
-  --accent: #486d0b;
-  --accent-fill: #c8ff00;
-  --accent-soft: rgb(72 109 11 / 0.1);
-  --accent-glow: rgb(72 109 11 / 0.13);
+  --accent: #087f73;
+  --accent-fill: #087f73;
+  --accent-contrast: #ffffff;
+  --accent-soft: rgb(8 127 115 / 0.09);
+  --accent-glow: rgb(8 127 115 / 0.12);
 
-  --line: rgb(20 30 10 / 0.1);
-  --line-strong: rgb(20 30 10 / 0.17);
+  --line: rgb(20 45 40 / 0.1);
+  --line-strong: rgb(20 45 40 / 0.17);
 
-  --card: rgb(255 255 255 / 0.76);
+  --card: rgb(255 255 255 / 0.85);
   --card-hover: #ffffff;
 
-  --grid: rgb(20 30 10 / 0.055);
+  --grid: rgb(20 45 40 / 0.055);
 
   --shadow:
-    0 25px 80px rgb(30 40 20 / 0.08), 0 1px 0 rgb(255 255 255 / 0.8) inset;
+    0 20px 60px rgb(20 45 40 / 0.07), 0 1px 0 rgb(255 255 255 / 0.9) inset;
 
-  --shadow-accent: 0 15px 50px rgb(72 109 11 / 0.1);
+  --shadow-accent: 0 15px 45px rgb(8 127 115 / 0.09);
 }
 
 /* =========================================================
@@ -94,6 +100,7 @@ html.light {
   --color-accent: var(--accent);
   --color-accent-fill: var(--accent-fill);
   --color-accent-soft: var(--accent-soft);
+  --color-accent-contrast: var(--accent-contrast);
 
   --font-sans: var(--font-geist-sans);
   --font-mono: var(--font-geist-mono);
@@ -111,12 +118,14 @@ html {
   scroll-behavior: smooth;
   scroll-padding-top: 110px;
   background: var(--bg);
+  overflow-x: clip;
 }
 
 body {
   margin: 0;
   min-height: 100vh;
-  overflow-x: hidden;
+  min-height: 100svh; /* mobile address bar fix */
+  overflow-x: clip;
 
   background: var(--bg);
   color: var(--fg);
@@ -129,10 +138,9 @@ body {
   text-rendering: optimizeLegibility;
 }
 
-body::selection,
 ::selection {
   background: var(--accent);
-  color: #080908;
+  color: var(--accent-contrast);
 }
 
 button,
@@ -170,12 +178,7 @@ img {
 
 ::placeholder {
   color: var(--muted);
-  opacity: 0.7;
-}
-
-::selection {
-  background: var(--accent);
-  color: #080908;
+  opacity: 0.8;
 }
 
 /* =========================================================
@@ -193,7 +196,7 @@ img {
 ::-webkit-scrollbar-thumb {
   border: 2px solid var(--bg);
   border-radius: 20px;
-  background: #39412d;
+  background: var(--muted);
 }
 
 ::-webkit-scrollbar-thumb:hover {
@@ -201,7 +204,7 @@ img {
 }
 
 html {
-  scrollbar-color: #39412d var(--bg);
+  scrollbar-color: var(--muted) var(--bg);
   scrollbar-width: thin;
 }
 
@@ -212,8 +215,8 @@ html {
 .text-gradient {
   background: linear-gradient(
     115deg,
-    var(--fg) 5%,
-    var(--accent) 52%,
+    var(--fg) 10%,
+    var(--accent) 55%,
     var(--fg) 100%
   );
   background-size: 200% auto;
@@ -225,31 +228,31 @@ html {
 .display {
   font-weight: 760;
   letter-spacing: -0.075em;
-  line-height: 0.92;
+  line-height: 0.98;
   text-wrap: balance;
 }
 
 .display-xl {
-  font-size: clamp(3.6rem, 10vw, 9.5rem);
+  font-size: clamp(3.4rem, 10vw, 9rem);
 }
 
 .display-lg {
-  font-size: clamp(3rem, 7vw, 6.5rem);
+  font-size: clamp(2.8rem, 7vw, 6.2rem);
 }
 
 .section-title {
-  font-size: clamp(2.6rem, 6vw, 5.8rem);
+  font-size: clamp(2.5rem, 6vw, 5.5rem);
   font-weight: 750;
-  letter-spacing: -0.07em;
-  line-height: 0.98;
+  letter-spacing: -0.065em;
+  line-height: 1;
   text-wrap: balance;
 }
 
 .eyebrow {
   color: var(--accent);
-  font-size: 0.7rem;
+  font-size: 0.72rem;
   font-weight: 750;
-  letter-spacing: 0.23em;
+  letter-spacing: 0.2em;
   text-transform: uppercase;
 }
 
@@ -268,7 +271,7 @@ html {
 }
 
 /* =========================================================
-   GLOBAL BACKGROUND ATMOSPHERE
+   GLOBAL BACKGROUND
 ========================================================= */
 
 .bg-grid {
@@ -286,10 +289,14 @@ html {
 
 .bg-gradient-premium {
   background:
-    radial-gradient(ellipse at 12% 8%, rgb(200 255 0 / 0.075), transparent 32%),
+    radial-gradient(
+      ellipse at 12% 8%,
+      rgb(69 214 197 / 0.075),
+      transparent 32%
+    ),
     radial-gradient(
       ellipse at 90% 45%,
-      rgb(100 140 35 / 0.055),
+      rgb(65 140 130 / 0.055),
       transparent 34%
     ),
     linear-gradient(180deg, var(--bg), var(--bg-secondary) 50%, var(--bg));
@@ -300,11 +307,9 @@ html {
   width: 420px;
   height: 420px;
   border-radius: 50%;
-
-  background: rgb(200 255 0 / 0.09);
-  filter: blur(130px);
-
-  opacity: 0.5;
+  background: var(--accent-glow);
+  filter: blur(120px);
+  opacity: 0.45;
   pointer-events: none;
   will-change: transform;
 }
@@ -343,12 +348,12 @@ html {
 
   background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 180 180'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.8' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='.3'/%3E%3C/svg%3E");
 
-  opacity: 0.035;
+  opacity: 0.025;
   mix-blend-mode: overlay;
 }
 
 html.light .grain::after {
-  opacity: 0.02;
+  opacity: 0.015;
   mix-blend-mode: multiply;
 }
 
@@ -358,37 +363,35 @@ html.light .grain::after {
 
 .glass {
   border: 1px solid var(--line);
-  background: rgb(255 255 255 / 0.035);
-  backdrop-filter: blur(22px);
-  -webkit-backdrop-filter: blur(22px);
+  background: var(--card);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
 }
 
 html.light .glass {
-  background: rgb(255 255 255 / 0.76);
+  background: rgb(255 255 255 / 0.82);
 }
 
 .premium-card {
   position: relative;
   overflow: hidden;
-
   border: 1px solid var(--line);
   border-radius: var(--radius-lg);
-
   background: var(--card);
   box-shadow: var(--shadow);
 
   transition:
-    border-color 0.5s var(--ease-premium),
-    background-color 0.5s var(--ease-premium),
-    box-shadow 0.5s var(--ease-premium),
-    transform 0.5s var(--ease-premium);
+    border-color 0.35s var(--ease-premium),
+    background-color 0.35s var(--ease-premium),
+    box-shadow 0.35s var(--ease-premium),
+    transform 0.35s var(--ease-premium);
 }
 
 .premium-card:hover {
-  border-color: rgb(200 255 0 / 0.35);
+  border-color: var(--accent);
   background: var(--card-hover);
   box-shadow: var(--shadow), var(--shadow-accent);
-  transform: translateY(-5px);
+  transform: translateY(-4px);
 }
 
 .card-spotlight {
@@ -402,16 +405,15 @@ html.light .glass {
   inset: 0;
   z-index: 2;
   pointer-events: none;
-
   opacity: 0;
 
   background: radial-gradient(
     450px circle at var(--mouse-x, 50%) var(--mouse-y, 50%),
-    rgb(200 255 0 / 0.11),
+    var(--accent-soft),
     transparent 45%
   );
 
-  transition: opacity 0.4s ease;
+  transition: opacity 0.3s ease;
 }
 
 .card-spotlight:hover::before {
@@ -426,15 +428,15 @@ html.light .glass {
 
 .surface-hover {
   transition:
-    border-color 0.35s ease,
-    background 0.35s ease,
-    transform 0.35s ease;
+    border-color 0.3s ease,
+    background 0.3s ease,
+    transform 0.3s ease;
 }
 
 .surface-hover:hover {
-  border-color: rgb(200 255 0 / 0.35);
+  border-color: var(--accent);
   background: var(--card-hover);
-  transform: translateY(-4px);
+  transform: translateY(-3px);
 }
 
 /* =========================================================
@@ -448,26 +450,29 @@ html.light .glass {
   justify-content: center;
   gap: 10px;
 
+  min-height: 48px;
   overflow: hidden;
+  padding: 14px 28px;
 
-  padding: 15px 28px;
   border: 1px solid transparent;
   border-radius: 999px;
 
   background: var(--accent-fill);
-  color: #080908;
+  color: var(--accent-contrast) !important;
 
   font-weight: 750;
+  line-height: 1.2;
+
   transition:
-    transform 0.4s var(--ease-premium),
-    box-shadow 0.4s ease,
-    filter 0.4s ease;
+    transform 0.3s var(--ease-premium),
+    box-shadow 0.3s ease,
+    filter 0.3s ease;
 }
 
 .btn-premium:hover {
-  transform: translateY(-4px);
-  box-shadow: 0 12px 38px rgb(200 255 0 / 0.22);
-  filter: brightness(1.06);
+  transform: translateY(-3px);
+  box-shadow: var(--shadow-accent);
+  filter: brightness(1.07);
 }
 
 .btn-premium:active {
@@ -480,25 +485,39 @@ html.light .glass {
   justify-content: center;
   gap: 10px;
 
-  padding: 14px 27px;
+  min-height: 48px;
+  padding: 13px 27px;
+
   border: 1px solid var(--line-strong);
   border-radius: 999px;
 
-  color: var(--fg);
+  color: var(--fg) !important;
   background: transparent;
 
-  transition: all 0.35s var(--ease-premium);
+  transition: all 0.3s var(--ease-premium);
 }
 
 .btn-outline:hover {
   border-color: var(--accent);
-  color: var(--accent);
+  color: var(--accent) !important;
   transform: translateY(-3px);
 }
 
 .btn-small {
   padding: 10px 17px;
   font-size: 0.82rem;
+}
+
+/* CTA text visibility fix — applies to the standalone CTA only */
+.mobile-nav-cta {
+  color: var(--accent-contrast) !important;
+  background: var(--accent-fill) !important;
+  font-weight: 750;
+}
+
+.mobile-nav-cta:hover {
+  color: var(--accent-contrast) !important;
+  filter: brightness(1.08);
 }
 
 /* =========================================================
@@ -516,12 +535,12 @@ html.light .glass {
   object-fit: cover;
 
   transition:
-    transform 1s var(--ease-premium),
-    filter 0.6s ease;
+    transform 0.8s var(--ease-premium),
+    filter 0.5s ease;
 }
 
 .image-reveal:hover img {
-  transform: scale(1.07);
+  transform: scale(1.05);
 }
 
 /* =========================================================
@@ -530,11 +549,11 @@ html.light .glass {
 
 .reveal {
   opacity: 0;
-  transform: translateY(35px);
+  transform: translateY(28px);
 
   transition:
-    opacity 0.85s ease,
-    transform 0.85s var(--ease-premium);
+    opacity 0.7s ease,
+    transform 0.7s var(--ease-premium);
 }
 
 .reveal-in {
@@ -544,20 +563,20 @@ html.light .glass {
 
 .reveal-left {
   opacity: 0;
-  transform: translateX(-45px);
-  transition: all 0.9s var(--ease-premium);
+  transform: translateX(-35px);
+  transition: all 0.75s var(--ease-premium);
 }
 
 .reveal-right {
   opacity: 0;
-  transform: translateX(45px);
-  transition: all 0.9s var(--ease-premium);
+  transform: translateX(35px);
+  transition: all 0.75s var(--ease-premium);
 }
 
 .reveal-scale {
   opacity: 0;
-  transform: scale(0.92);
-  transition: all 0.9s var(--ease-premium);
+  transform: scale(0.94);
+  transition: all 0.75s var(--ease-premium);
 }
 
 .reveal-left.reveal-in,
@@ -574,8 +593,8 @@ html.light .glass {
 @keyframes hero-fade-up {
   from {
     opacity: 0;
-    transform: translateY(35px);
-    filter: blur(8px);
+    transform: translateY(28px);
+    filter: blur(5px);
   }
 
   to {
@@ -586,7 +605,7 @@ html.light .glass {
 }
 
 .hero-fade {
-  animation: hero-fade-up 1s var(--ease-premium) both;
+  animation: hero-fade-up 0.9s var(--ease-premium) both;
 }
 
 .hero-fade-1 {
@@ -616,7 +635,7 @@ html.light .glass {
   }
 
   50% {
-    transform: translateY(-16px);
+    transform: translateY(-12px);
   }
 }
 
@@ -631,11 +650,11 @@ html.light .glass {
 @keyframes pulse-glow {
   0%,
   100% {
-    box-shadow: 0 0 0 0 rgb(200 255 0 / 0.1);
+    box-shadow: 0 0 0 0 var(--accent-soft);
   }
 
   50% {
-    box-shadow: 0 0 25px 4px rgb(200 255 0 / 0.17);
+    box-shadow: 0 0 22px 3px var(--accent-glow);
   }
 }
 
@@ -766,8 +785,7 @@ html.light .glass {
 .cursor-outline {
   width: 38px;
   height: 38px;
-
-  border: 1px solid rgb(200 255 0 / 0.65);
+  border: 1px solid var(--accent);
 
   transition:
     width 0.3s ease,
@@ -778,7 +796,7 @@ html.light .glass {
 .cursor-hover {
   width: 65px;
   height: 65px;
-  background: rgb(200 255 0 / 0.08);
+  background: var(--accent-soft);
 }
 
 /* =========================================================
@@ -786,21 +804,26 @@ html.light .glass {
 ========================================================= */
 
 .nav-glass {
-  border: 1px solid rgb(255 255 255 / 0.08);
-  background: rgb(7 9 7 / 0.78);
+  border: 1px solid var(--line);
+  background: rgb(11 17 19 / 0.86);
 
-  backdrop-filter: blur(24px);
-  -webkit-backdrop-filter: blur(24px);
+  backdrop-filter: blur(22px);
+  -webkit-backdrop-filter: blur(22px);
 }
 
 html.light .nav-glass {
   border-color: var(--line);
-  background: rgb(245 247 240 / 0.86);
+  background: rgb(247 250 249 / 0.9);
 }
 
 .nav-link {
   position: relative;
-  transition: color 0.3s ease;
+  color: var(--muted);
+  transition: color 0.25s ease;
+}
+
+.nav-link:hover {
+  color: var(--fg);
 }
 
 .nav-link::after {
@@ -813,7 +836,7 @@ html.light .nav-glass {
   height: 2px;
 
   background: var(--accent);
-  transition: width 0.35s var(--ease-premium);
+  transition: width 0.3s var(--ease-premium);
 }
 
 .nav-link:hover::after {
@@ -846,7 +869,7 @@ html.light .nav-glass {
   color: var(--accent);
   font-size: 12px;
   font-weight: 750;
-  letter-spacing: 0.2em;
+  letter-spacing: 0.18em;
   text-transform: uppercase;
 }
 
@@ -921,7 +944,7 @@ html.theme-anim *::after {
 }
 
 /* =========================================================
-   RESPONSIVE
+   RESPONSIVE — TABLET
 ========================================================= */
 
 @media (max-width: 1024px) {
@@ -932,7 +955,16 @@ html.theme-anim *::after {
   .display {
     letter-spacing: -0.06em;
   }
+
+  .ambient-light {
+    width: 300px;
+    height: 300px;
+  }
 }
+
+/* =========================================================
+   RESPONSIVE — MOBILE
+========================================================= */
 
 @media (max-width: 768px) {
   :root {
@@ -944,63 +976,150 @@ html.theme-anim *::after {
   }
 
   .display {
+    letter-spacing: -0.045em;
+    line-height: 1;
+  }
+
+  .display-xl {
+    font-size: clamp(3rem, 12vw, 5.5rem);
+  }
+
+  .display-lg {
+    font-size: clamp(2.6rem, 10vw, 4.5rem);
+  }
+
+  .section-title {
+    font-size: clamp(2.3rem, 8vw, 4rem);
     letter-spacing: -0.05em;
   }
 
   .section-lead {
     font-size: 15px;
+    line-height: 1.75;
   }
 
   .ambient-light {
-    width: 240px;
-    height: 240px;
+    width: 220px;
+    height: 220px;
+    filter: blur(80px);
+    opacity: 0.3;
+  }
+
+  .section-glow {
+    width: 200px;
+    height: 200px;
     filter: blur(85px);
   }
 
   .custom-cursor {
+    display: none !important;
+  }
+
+  .premium-card:hover,
+  .surface-hover:hover {
+    transform: none;
+  }
+
+  .card-3d {
+    transform: none !important;
+    will-change: auto;
+  }
+
+  .card-depth,
+  .card-depth-small {
+    transform: none;
+  }
+
+  .float,
+  .float-slow {
+    animation: none;
+  }
+
+  .grain::after {
     display: none;
   }
 
-  .premium-card:hover {
+  .btn-premium:hover,
+  .btn-outline:hover {
     transform: none;
   }
-}
 
-@media (max-width: 480px) {
-  .section-shell {
-    padding: 72px 18px;
-  }
-
-  .display-xl {
-    font-size: clamp(3.2rem, 15vw, 5rem);
-  }
-
-  .section-title {
-    letter-spacing: -0.055em;
-  }
-
-  .btn-premium,
-  .btn-outline {
-    padding: 12px 21px;
+  /* Prevent iOS auto-zoom when focusing form fields */
+  input,
+  textarea,
+  select {
+    font-size: 16px !important;
   }
 }
 
 /* =========================================================
-   POINTER & TOUCH
+   RESPONSIVE — SMALL MOBILE
+========================================================= */
+
+@media (max-width: 480px) {
+  .section-shell {
+    padding: 70px 18px;
+  }
+
+  .display-xl {
+    font-size: clamp(2.8rem, 14vw, 4.5rem);
+  }
+
+  .display-lg {
+    font-size: clamp(2.5rem, 11vw, 3.8rem);
+  }
+
+  .section-title {
+    font-size: clamp(2.1rem, 9vw, 3.2rem);
+    letter-spacing: -0.045em;
+  }
+
+  .btn-premium,
+  .btn-outline {
+    min-height: 45px;
+    padding: 12px 20px;
+    font-size: 0.9rem;
+  }
+
+  .premium-card {
+    border-radius: 20px;
+  }
+
+  .section-kicker {
+    font-size: 10px;
+    letter-spacing: 0.15em;
+  }
+}
+
+/* =========================================================
+   TOUCH DEVICES
 ========================================================= */
 
 @media (hover: none), (pointer: coarse) {
   .custom-cursor {
-    display: none;
+    display: none !important;
   }
 
   .card-spotlight::before {
     display: none;
   }
+
+  .premium-card:hover,
+  .surface-hover:hover {
+    transform: none;
+  }
+
+  .card-3d {
+    transform: none !important;
+  }
+
+  .marquee-track {
+    animation-duration: 42s;
+  }
 }
 
 /* =========================================================
-   ACCESSIBILITY / REDUCED MOTION
+   ACCESSIBILITY — REDUCED MOTION
 ========================================================= */
 
 @media (prefers-reduced-motion: reduce) {
@@ -1035,4 +1154,113 @@ html.theme-anim *::after {
   .marquee-track {
     animation: none;
   }
+
+  .mask-line-inner,
+  .preloader-name {
+    opacity: 1 !important;
+    transform: none !important;
+    transition: none !important;
+  }
+
+  .role-swap {
+    opacity: 1 !important;
+    transform: none !important;
+    animation: none !important;
+  }
+
+  .typing-caret {
+    animation: none !important;
+  }
+}
+
+/* =========================================================
+   MASKED LINE REVEAL
+   ========================================================= */
+
+.mask-line {
+  display: block;
+  overflow: hidden;
+
+  /* Room for descenders so overflow-hidden never clips them,
+     without changing the visual layout. */
+  padding-bottom: 0.14em;
+  margin-bottom: -0.14em;
+}
+
+.mask-line-inner {
+  display: block;
+
+  opacity: 0;
+  transform: translateY(115%);
+
+  transition:
+    transform 0.85s var(--ease-premium),
+    opacity 0.85s var(--ease-premium);
+
+  will-change: transform;
+}
+
+.mask-line-in .mask-line-inner {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* =========================================================
+   ROTATING ROLE TEXT
+   ========================================================= */
+
+@keyframes role-in {
+  from {
+    opacity: 0;
+    transform: translateY(55%);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes role-out {
+  to {
+    opacity: 0;
+    transform: translateY(-55%);
+  }
+}
+
+.role-swap {
+  display: inline-block;
+}
+
+.role-in {
+  animation: role-in 0.45s var(--ease-premium) both;
+}
+
+.role-out {
+  animation: role-out 0.3s ease-in both;
+}
+
+/* =========================================================
+   PRELOADER SPLASH — always uses the dark palette,
+   even when the site is viewed in light mode.
+   ========================================================= */
+
+.preloader-root {
+  color-scheme: dark;
+
+  --bg: #0b1113;
+  --bg-secondary: #101a1d;
+
+  --fg: #f1f6f5;
+  --muted: #a0b0af;
+
+  --line: rgb(255 255 255 / 0.09);
+
+  --accent: #45d6c5;
+  --accent-fill: #45d6c5;
+  --accent-contrast: #062522;
+  --accent-soft: rgb(69 214 197 / 0.11);
+  --accent-glow: rgb(69 214 197 / 0.16);
+
+  --grid: rgb(255 255 255 / 0.045);
 }

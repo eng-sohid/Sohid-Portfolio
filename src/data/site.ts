@@ -1,9 +1,10 @@
 export const site = {
   name: "Sohid Mondol",
   email: "sohid10960@gmail.com",
-  // Put your PDF at public/Sohid-Mondol-CV.pdf
+  // Resume PDF must live at public/Md_Sohid_Mondol_Resume.pdf.
+  // Opened in a new tab by the navbar ("View Resume") and downloaded by hero ("Download CV").
   whatsapp: "8801719026575",
-  cv: "/Sohid-CV.pdf",
+  cv: "/Md_Sohid_Mondol_Resume.pdf",
   about:
     "I'm a Computer Science student who enjoys turning ideas into fast, clean, and easy-to-use websites. I learn by building real projects, and I care about readable code, good design, and accessibility.",
   intro:

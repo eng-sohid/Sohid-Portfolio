@@ -1,4 +1,6 @@
 import Reveal from "../../components/Reveal";
+import MaskText from "../../components/motion/MaskText";
+import TiltCard from "../../components/motion/TiltCard";
 import { projects } from "../../data/site";
 
 import {
@@ -23,6 +25,7 @@ export default function Projects() {
       {/* Background atmosphere */}
       <div
         aria-hidden="true"
+        data-parallax="0.12"
         className="pointer-events-none absolute -right-40 top-20 h-96 w-96 rounded-full bg-accent/5 blur-[130px]"
       />
 
@@ -37,7 +40,9 @@ export default function Projects() {
               </p>
 
               <h2 id="projects-heading" className={h2}>
-                Selected <span className="text-accent">work.</span>
+                <MaskText className="block">
+                  Selected <span className="text-accent">work.</span>
+                </MaskText>
               </h2>
 
               <p className="lead mt-4 max-w-xl">
@@ -64,11 +69,15 @@ export default function Projects() {
                 delay={i * 120}
                 className={featured ? "md:col-span-2" : ""}
               >
-                <article
-                  className={`group relative flex h-full flex-col overflow-hidden rounded-[1.75rem] border border-line bg-card transition-all duration-500 hover:-translate-y-2 hover:border-accent/40 hover:shadow-2xl hover:shadow-accent/5 ${
-                    featured ? "md:flex-row" : ""
-                  }`}
+                <TiltCard
+                  max={featured ? 4 : 6}
+                  className="h-full"
                 >
+                  <article
+                    className={`group relative flex h-full flex-col overflow-hidden rounded-[1.75rem] border border-line bg-card transition-[border-color,background-color,box-shadow] duration-500 hover:border-accent/40 hover:shadow-2xl hover:shadow-accent/5 ${
+                      featured ? "md:flex-row" : ""
+                    }`}
+                  >
                   {/* Project visual */}
                   <div
                     className={`relative isolate overflow-hidden bg-gradient-to-br ${p.gradient} to-transparent ${
@@ -205,6 +214,7 @@ export default function Projects() {
                     </div>
                   </div>
                 </article>
+                </TiltCard>
               </Reveal>
             );
           })}

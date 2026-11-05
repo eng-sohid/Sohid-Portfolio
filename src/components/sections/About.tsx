@@ -1,4 +1,5 @@
 import Reveal from "../../components/Reveal";
+import MaskText from "../../components/motion/MaskText";
 import { site } from "../../data/site";
 
 import { section, container, kicker, h2, card } from "../../lib/styles";
@@ -32,11 +33,13 @@ export default function About() {
       {/* Background atmosphere */}
       <div
         aria-hidden="true"
+        data-parallax="0.14"
         className="pointer-events-none absolute -left-40 top-20 h-96 w-96 rounded-full bg-accent/8 blur-[140px]"
       />
 
       <div
         aria-hidden="true"
+        data-parallax="0.1"
         className="pointer-events-none absolute bottom-0 right-0 h-72 w-72 rounded-full bg-accent/5 blur-[120px]"
       />
 
@@ -58,9 +61,11 @@ export default function About() {
               id="about-heading"
               className={`${h2} mt-6 max-w-2xl leading-[1.12] tracking-[-0.05em]`}
             >
-              More than code.
-              <br />
-              <span className="text-accent">Driven by curiosity.</span>
+              <MaskText className="block">More than code.</MaskText>
+
+              <MaskText className="block" delay={110}>
+                <span className="text-accent">Driven by curiosity.</span>
+              </MaskText>
             </h2>
 
             <div className="mt-9 max-w-2xl space-y-6">
@@ -132,7 +137,7 @@ export default function About() {
 
                 <span
                   aria-hidden="true"
-                  className="flex h-12 w-12 shrink-0 items-center justify-center rounded-2xl border border-accent/20 bg-accent/10 text-xl text-accent shadow-[0_0_25px_rgba(204,255,0,0.06)]"
+                  className="flex h-12 w-12 shrink-0 items-center justify-center rounded-2xl border border-accent/20 bg-accent/10 text-xl text-accent shadow-[0_0_25px_var(--accent-glow)]"
                 >
                   ✳
                 </span>
@@ -161,7 +166,7 @@ export default function About() {
 
               {/* Card footer */}
               <div className="mt-9 flex items-center gap-3">
-                <span className="h-1.5 w-1.5 rounded-full bg-accent shadow-[0_0_10px_rgba(204,255,0,0.8)]" />
+                <span className="h-1.5 w-1.5 rounded-full bg-accent shadow-[0_0_10px_var(--accent-glow)]" />
                 <span className="h-px flex-1 bg-line" />
                 <span className="font-mono text-[9px] tracking-[0.2em] text-muted/60">
                   ABOUT / SOHID

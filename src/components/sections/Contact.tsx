@@ -1,4 +1,5 @@
 import Reveal from "../../components/Reveal";
+import MaskText from "../../components/motion/MaskText";
 import { site } from "../../data/site";
 
 import { section, container, kicker, h2, lead, ext } from "../../lib/styles";
@@ -56,6 +57,7 @@ export default function Contact() {
       {/* Background atmosphere */}
       <div
         aria-hidden="true"
+        data-parallax="0.12"
         className="pointer-events-none absolute -left-40 bottom-0 h-96 w-96 rounded-full bg-accent/10 blur-[140px]"
       />
 
@@ -70,8 +72,11 @@ export default function Contact() {
               </p>
 
               <h2 id="contact-heading" className={`${h2} max-w-2xl`}>
-                Let&apos;s build something{" "}
-                <span className="text-accent">together.</span>
+                <MaskText className="block">Let&apos;s build something</MaskText>
+
+                <MaskText className="block" delay={110}>
+                  <span className="text-accent">together.</span>
+                </MaskText>
               </h2>
 
               <p className={`${lead} mt-6 max-w-xl`}>

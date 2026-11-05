@@ -1,8 +1,59 @@
+"use client";
+
+import { useEffect, useRef } from "react";
+import { gsap } from "gsap";
+import { ScrollTrigger } from "gsap/ScrollTrigger";
+
 import Reveal from "../../components/Reveal";
+import MaskText from "../../components/motion/MaskText";
 import { education } from "../../data/site";
 import { section, container, kicker, h2 } from "../../lib/styles";
 
+gsap.registerPlugin(ScrollTrigger);
+
 export default function Education() {
+  const listRef = useRef<HTMLOListElement>(null);
+  const lineRef = useRef<HTMLDivElement>(null);
+
+  // Line-draw animation — the timeline line draws as the user scrolls.
+  useEffect(() => {
+    const line = lineRef.current;
+    const list = listRef.current;
+
+    if (!line || !list) return;
+
+    const reducedMotion = window.matchMedia(
+      "(prefers-reduced-motion: reduce)",
+    );
+
+    if (reducedMotion.matches) {
+      gsap.set(line, { scaleY: 1 });
+      return;
+    }
+
+    gsap.set(line, { transformOrigin: "top", scaleY: 0 });
+
+    const tween = gsap.to(line, {
+      scaleY: 1,
+      ease: "none",
+      scrollTrigger: {
+        trigger: list,
+        start: "top 72%",
+        end: "bottom 55%",
+        scrub: 0.6,
+      },
+    });
+
+    ScrollTrigger.refresh();
+
+    return () => {
+      tween.scrollTrigger?.kill();
+      tween.kill();
+
+      gsap.killTweensOf(line);
+    };
+  }, []);
+
   return (
     <section
       id="education"
@@ -12,6 +63,7 @@ export default function Education() {
       {/* Background glow */}
       <div
         aria-hidden="true"
+        data-parallax="0.12"
         className="pointer-events-none absolute -right-40 top-1/4 h-96 w-96 rounded-full bg-accent/5 blur-[130px]"
       />
 
@@ -26,7 +78,9 @@ export default function Education() {
               </p>
 
               <h2 id="education-heading" className={h2}>
-                My <span className="text-accent">education.</span>
+                <MaskText className="block">
+                  My <span className="text-accent">education.</span>
+                </MaskText>
               </h2>
             </div>
 
@@ -37,9 +91,10 @@ export default function Education() {
         </Reveal>
 
         {/* Education timeline */}
-        <ol className="relative mt-12">
-          {/* Timeline line */}
+        <ol ref={listRef} className="relative mt-12">
+          {/* Timeline line — drawn on scroll */}
           <div
+            ref={lineRef}
             aria-hidden="true"
             className="absolute bottom-8 left-[7px] top-8 w-px bg-line sm:left-[188px]"
           />
@@ -53,7 +108,7 @@ export default function Education() {
                     <span
                       className={`relative z-10 flex h-4 w-4 shrink-0 items-center justify-center rounded-full border ${
                         item.current
-                          ? "border-accent bg-accent/20 shadow-[0_0_18px_rgba(204,255,0,0.25)]"
+                          ? "border-accent bg-accent/20 shadow-[0_0_18px_var(--accent-glow)]"
                           : "border-line bg-bg"
                       }`}
                     >

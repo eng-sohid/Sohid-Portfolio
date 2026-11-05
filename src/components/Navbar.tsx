@@ -5,7 +5,9 @@ import { gsap } from "gsap";
 
 import { navLinks, site } from "../data/site";
 import { ext } from "../lib/styles";
+import { onContentLoaded } from "../lib/preloader-state";
 import ThemeToggle from "./ThemeToggle";
+import Magnetic from "./motion/Magnetic";
 
 const observedSections = [...navLinks.map((link) => link.href), "#contact"];
 
@@ -17,32 +19,115 @@ export default function Navbar() {
   const navRef = useRef<HTMLElement>(null);
   const mobileMenuRef = useRef<HTMLDivElement>(null);
 
-  // Navbar entrance animation
+  // Navbar entrance animation — starts once the preloader lifts.
   useEffect(() => {
-    if (!headerRef.current || !navRef.current) return;
+    const header = headerRef.current;
+    const nav = navRef.current;
 
-    const context = gsap.context(() => {
-      const timeline = gsap.timeline({
-        delay: 0.2,
-        defaults: { ease: "power3.out" },
-      });
+    if (!header || !nav) return;
 
-      timeline.fromTo(
-        headerRef.current,
-        { y: -35, opacity: 0 },
-        { y: 0, opacity: 1, duration: 0.9 },
-      );
+    let context: gsap.Context | null = null;
 
-      timeline.fromTo(
-        navRef.current,
-        { scale: 0.97 },
-        { scale: 1, duration: 0.7 },
-        "-=0.55",
-      );
-    }, headerRef);
+    const unsubscribe = onContentLoaded(() => {
+      context = gsap.context(() => {
+        const timeline = gsap.timeline({
+          delay: 0.15,
+          defaults: { ease: "power3.out" },
+        });
 
-    return () => context.revert();
+        timeline.fromTo(
+          header,
+          { y: -35, opacity: 0 },
+          { y: 0, opacity: 1, duration: 0.9 },
+        );
+
+        timeline.fromTo(
+          nav,
+          { scale: 0.97 },
+          { scale: 1, duration: 0.7 },
+          "-=0.55",
+        );
+      }, header);
+    });
+
+    return () => {
+      unsubscribe();
+      context?.revert();
+    };
   }, []);
+
+  // Hide on scroll down, show on scroll up.
+  useEffect(() => {
+    const header = headerRef.current;
+
+    if (!header) return;
+
+    // Keep the navbar static for reduced-motion users.
+    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+
+    let lastY = window.scrollY;
+    let hidden = false;
+    let frame = 0;
+
+    const update = () => {
+      frame = 0;
+
+      const y = window.scrollY;
+      const delta = y - lastY;
+      lastY = y;
+
+      // Not scrolled past the header yet, or menu open — always show.
+      if (y < 120 || menuOpen) {
+        if (hidden) {
+          hidden = false;
+
+          gsap.to(header, {
+            yPercent: 0,
+            duration: 0.45,
+            ease: "power3.out",
+            overwrite: "auto",
+          });
+        }
+
+        return;
+      }
+
+      if (delta > 4 && !hidden) {
+        hidden = true;
+
+        gsap.to(header, {
+          yPercent: -115,
+          duration: 0.5,
+          ease: "power3.in",
+          overwrite: "auto",
+        });
+      } else if (delta < -4 && hidden) {
+        hidden = false;
+
+        gsap.to(header, {
+          yPercent: 0,
+          duration: 0.5,
+          ease: "power3.out",
+          overwrite: "auto",
+        });
+      }
+    };
+
+    const onScroll = () => {
+      if (frame) return;
+
+      frame = window.requestAnimationFrame(update);
+    };
+
+    window.addEventListener("scroll", onScroll, { passive: true });
+
+    return () => {
+      window.cancelAnimationFrame(frame);
+      window.removeEventListener("scroll", onScroll);
+
+      gsap.killTweensOf(header);
+    };
+  }, [menuOpen]);
 
   // Highlight active section
   useEffect(() => {
@@ -158,7 +243,7 @@ export default function Navbar() {
               >
                 {link.label}
                 {active === link.href && (
-                  <span className="absolute inset-x-4 -bottom-0.5 h-px bg-accent shadow-[0_0_8px_rgba(204,255,0,0.8)]" />
+                  <span className="absolute inset-x-4 -bottom-0.5 h-px bg-accent shadow-[0_0_8px_var(--accent-glow)]" />
                 )}
               </a>
             ))}
@@ -169,19 +254,22 @@ export default function Navbar() {
             <a
               href={site.cv}
               {...ext}
+              aria-label="View resume, opens in a new tab"
               className="hidden rounded-full px-3 py-2 text-sm font-medium text-muted transition-colors duration-300 hover:text-accent sm:block"
             >
-              View CV
+              View Resume
             </a>
 
             <ThemeToggle />
 
-            <a
-              href="#contact"
-              className="hidden rounded-full bg-accent-fill px-5 py-2.5 text-sm font-semibold text-black shadow-[0_0_20px_rgba(204,255,0,0.08)] transition-all duration-300 hover:-translate-y-0.5 hover:shadow-[0_0_25px_rgba(204,255,0,0.2)] sm:block"
-            >
-              Let&apos;s Talk <span className="ml-1">↗</span>
-            </a>
+            <Magnetic strength={0.3} className="hidden sm:inline-block">
+              <a
+                href="#contact"
+                className="rounded-full bg-accent-fill px-5 py-2.5 text-sm font-semibold text-accent-contrast shadow-[0_0_20px_var(--accent-glow)] transition-all duration-300 hover:-translate-y-0.5 hover:shadow-[0_0_28px_var(--accent-glow)]"
+              >
+                Let&apos;s Talk <span className="ml-1">↗</span>
+              </a>
+            </Magnetic>
 
             {/* Mobile Menu Button */}
             <button
@@ -248,15 +336,16 @@ export default function Navbar() {
                 href={site.cv}
                 {...ext}
                 onClick={closeMenu}
+                aria-label="View resume, opens in a new tab"
                 className="mobile-nav-link rounded-full px-4 py-3 text-muted transition hover:text-accent"
               >
-                View CV
+                View Resume
               </a>
 
               <a
                 href="#contact"
                 onClick={closeMenu}
-                className="mobile-nav-link mt-1 rounded-full bg-accent-fill px-4 py-3 text-center font-semibold text-black transition hover:brightness-110"
+                className="mobile-nav-cta mt-1 rounded-full bg-accent-fill px-4 py-3 text-center font-semibold text-accent-contrast transition hover:brightness-110"
               >
                 Let&apos;s Talk ↗
               </a>

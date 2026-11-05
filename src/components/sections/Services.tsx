@@ -1,4 +1,5 @@
 import Reveal from "../../components/Reveal";
+import MaskText from "../../components/motion/MaskText";
 import { services } from "../../data/site";
 
 import { section, container, kicker, h2, card, lead } from "../../lib/styles";
@@ -13,11 +14,13 @@ export default function Services() {
       {/* Background atmosphere */}
       <div
         aria-hidden="true"
+        data-parallax="0.14"
         className="pointer-events-none absolute -left-40 top-1/3 h-96 w-96 rounded-full bg-accent/8 blur-[140px]"
       />
 
       <div
         aria-hidden="true"
+        data-parallax="0.1"
         className="pointer-events-none absolute -right-32 bottom-0 h-80 w-80 rounded-full bg-accent/5 blur-[130px]"
       />
 
@@ -38,9 +41,11 @@ export default function Services() {
                 id="services-heading"
                 className={`${h2} mt-6 max-w-xl leading-[1.12] tracking-[-0.05em]`}
               >
-                What I can
-                <br />
-                <span className="text-accent">build for you.</span>
+                <MaskText className="block">What I can</MaskText>
+
+                <MaskText className="block" delay={110}>
+                  <span className="text-accent">build for you.</span>
+                </MaskText>
               </h2>
             </div>
 

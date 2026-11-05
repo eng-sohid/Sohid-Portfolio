@@ -1,4 +1,5 @@
 import CurrentYear from "../components/CurrentYear";
+import Reveal from "./Reveal";
 import { GitHubIcon, LinkedInIcon, Mail } from "./icons";
 import { site, navLinks } from "../data/site";
 
@@ -17,7 +18,7 @@ export default function Footer() {
         className="pointer-events-none absolute -bottom-32 left-1/2 h-64 w-[500px] -translate-x-1/2 rounded-full bg-accent/5 blur-[120px]"
       />
 
-      <div className="relative mx-auto max-w-6xl">
+      <Reveal className="relative mx-auto max-w-6xl">
         {/* Main footer */}
         <div className="flex flex-col gap-12 md:flex-row md:items-start md:justify-between">
           {/* Brand */}
@@ -59,7 +60,7 @@ export default function Footer() {
                         : {})}
                       aria-label={social.label}
                       title={social.label}
-                      className="flex h-11 w-11 items-center justify-center rounded-xl border border-line bg-card text-muted transition-all duration-300 hover:-translate-y-1 hover:border-accent/50 hover:bg-accent/5 hover:text-accent hover:shadow-[0_8px_25px_rgba(204,255,0,0.06)]"
+                      className="flex h-11 w-11 items-center justify-center rounded-xl border border-line bg-card text-muted transition-all duration-300 hover:-translate-y-1 hover:border-accent/50 hover:bg-accent/5 hover:text-accent hover:shadow-[0_8px_25px_var(--accent-glow)]"
                     >
                       <Icon size={18} />
                     </a>
@@ -146,7 +147,7 @@ export default function Footer() {
             </span>
           </a>
         </div>
-      </div>
+      </Reveal>
     </footer>
   );
 }

@@ -205,6 +205,20 @@ export default function RootLayout({
                 opacity: 1 !important;
                 transform: none !important;
               }
+
+              .mask-line-inner {
+                opacity: 1 !important;
+                transform: none !important;
+              }
+
+              .role-swap {
+                opacity: 1 !important;
+                transform: none !important;
+              }
+
+              .preloader-root {
+                display: none !important;
+              }
             `}
           </style>
         </noscript>

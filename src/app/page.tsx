@@ -11,6 +11,8 @@ import Services from "../components/sections/Services";
 import Preloader from "../components/Preloader";
 import Cursor from "../components/Cursor";
 import SmoothScroll from "../components/motion/SmoothScroll";
+import ScrollProgress from "../components/ScrollProgress";
+import Parallax from "../components/motion/Parallax";
 
 export default function Home() {
   return (
@@ -18,6 +20,8 @@ export default function Home() {
       <Preloader />
       <Cursor />
       <SmoothScroll />
+      <ScrollProgress />
+      <Parallax />
 
       <Navbar />
 
