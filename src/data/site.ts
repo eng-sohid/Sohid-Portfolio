@@ -105,6 +105,26 @@ export type Project = {
 
 export const projects: Project[] = [
   {
+    title: "Wedding Plan",
+    titleBn: "ওয়েডিং প্ল্যান",
+    subtitle: "Full Stack Wedding Management & Event Platform",
+    description:
+      "A modern full-stack wedding planning and event management platform designed to organize ceremonies, manage guest lists, track budgets, and coordinate schedules seamlessly. Features an elegant, responsive interface with real-time updates and complete administrative control.",
+    tech: [
+      "Next.js",
+      "TypeScript",
+      "Tailwind CSS",
+      "Node.js",
+      "Express.js",
+      "MongoDB",
+      "Better Auth",
+    ],
+    gradient: "from-rose-500/15",
+    demo: "https://wed-plan-client-site.vercel.app",
+    github: "https://github.com/eng-sohid/Wed-Plan-Client-Site",
+    backend: "https://github.com/eng-sohid/Wed-Plan-Server-Site",
+  },
+  {
     title: "BookNook",
     titleBn: "বুক নুক",
     subtitle: "Full Stack Online Book Platform",
