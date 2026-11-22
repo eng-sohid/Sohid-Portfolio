@@ -4,7 +4,7 @@ export const site = {
   // Resume PDF must live at public/Md_Sohid_Mondol_Resume.pdf.
   // Opened in a new tab by the navbar ("View Resume") and downloaded by hero ("Download CV").
   whatsapp: "8801719026575",
-  cv: "/Md_Sohid_Mondol_Resume (1).pdf",
+  cv: "/Sohid_Mondol_Resume.pdf",
   about:
     "I'm a Computer Science student who enjoys turning ideas into fast, clean, and easy-to-use websites. I learn by building real projects, and I care about readable code, good design, and accessibility.",
   intro:
